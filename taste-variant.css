@@ -1,0 +1,360 @@
+/* Variant direction: blueprint premium for a regulated local insurance cabinet. */
+
+.taste-only {
+  display: none;
+}
+
+html.taste-variant {
+  --paper: #f1f5f9;
+  --white: #ffffff;
+  --ink: #0b1d33;
+  --ink-soft: #203955;
+  --muted: #52657a;
+  --line: #cbd7e5;
+  --blue: #1457a6;
+  --blue-dark: #0d3d78;
+  --blue-pale: #e2edf9;
+  --green: #16715b;
+  --radius-md: 5px;
+  --shadow: 0 20px 45px rgba(11, 29, 51, 0.1);
+}
+
+html.taste-variant body {
+  background:
+    linear-gradient(90deg, rgba(20, 87, 166, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(20, 87, 166, 0.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: 32px 32px;
+}
+
+html.taste-variant .site-header {
+  min-height: 70px;
+  border-bottom-color: var(--line);
+  background: rgba(241, 245, 249, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+html.taste-variant .brand-mark {
+  border-radius: 5px;
+  background: var(--blue);
+}
+
+html.taste-variant .main-nav a {
+  color: var(--ink-soft);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+html.taste-variant .header-call,
+html.taste-variant .button-primary {
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+html.taste-variant .header-call {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  row-gap: 1px;
+  padding: 8px 14px;
+  border-color: var(--green);
+  background: var(--green);
+  color: var(--white);
+}
+
+html.taste-variant .header-call:hover {
+  border-color: #0f5948;
+  background: #0f5948;
+  color: var(--white);
+}
+
+html.taste-variant .header-call > span:first-child {
+  grid-row: 1 / 3;
+  align-self: center;
+}
+
+html.taste-variant .header-call-label {
+  display: block;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+html.taste-variant .header-call-number {
+  display: block;
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+html.taste-variant .hero {
+  grid-template-columns: minmax(0, 1.08fr) minmax(310px, 0.92fr);
+  gap: clamp(34px, 7vw, 110px);
+  padding-top: 64px;
+}
+
+html.taste-variant .hero h1,
+html.taste-variant .intro-section h2,
+html.taste-variant .services-section h2,
+html.taste-variant .questionnaire-heading h2,
+html.taste-variant .contact-copy h2,
+html.taste-variant .reviews-section h2,
+html.taste-variant .legal-section h2,
+html.taste-variant .form-panel h3,
+html.taste-variant .section-heading-row h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: -0.055em;
+}
+
+html.taste-variant .hero h1 {
+  max-width: 650px;
+  font-size: clamp(50px, 7vw, 92px);
+  line-height: 0.94;
+}
+
+html.taste-variant .hero h1 em {
+  color: var(--blue);
+  font-style: normal;
+}
+
+html.taste-variant .hero-brand-message {
+  display: grid;
+  gap: 3px;
+  margin: 16px 0 18px;
+  color: var(--ink-soft);
+}
+
+html.taste-variant .hero-brand-message p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+html.taste-variant .hero-brand-message p:first-child {
+  color: var(--ink);
+  font-size: 16px;
+}
+
+html.taste-variant .hero-brand-message strong {
+  color: var(--blue);
+}
+
+html.taste-variant .hero-brand-message p:last-child {
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+html.taste-variant .hero-lead {
+  max-width: 390px;
+  color: var(--ink-soft);
+}
+
+html.taste-variant .hero-actions .button {
+  border-radius: 5px;
+}
+
+html.taste-variant .hero-actions .button-secondary {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+
+html.taste-variant .hero-actions .button-secondary:hover {
+  border-color: var(--ink-soft);
+  background: var(--ink-soft);
+}
+
+html.taste-variant .hero-callout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 14px;
+  max-width: 470px;
+  margin: -12px 0 28px;
+  padding: 15px 18px;
+  border-radius: 5px;
+  background: var(--green);
+  color: var(--white);
+  box-shadow: 0 12px 24px rgba(22, 113, 91, 0.16);
+}
+
+html.taste-variant .hero-callout-label {
+  align-self: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+html.taste-variant .hero-callout-number {
+  color: var(--white);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.05;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+html.taste-variant .hero-callout-note {
+  grid-column: 1 / -1;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 11px;
+}
+
+html.taste-variant .hero-portrait {
+  min-height: 520px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  transform: translateY(18px);
+}
+
+html.taste-variant .hero-portrait::after {
+  background: linear-gradient(180deg, transparent 48%, rgba(11, 29, 51, 0.72));
+}
+
+html.taste-variant .hero-portrait img {
+  min-height: 520px;
+  filter: saturate(0.82) contrast(1.04);
+}
+
+html.taste-variant .proof-strip {
+  border-color: var(--line);
+  background: var(--ink);
+  box-shadow: 0 12px 30px rgba(11, 29, 51, 0.06);
+}
+
+html.taste-variant .proof-strip strong {
+  color: var(--white);
+}
+
+html.taste-variant .proof-strip span {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+html.taste-variant .proof-strip .stars {
+  color: #e2b23c;
+}
+
+html.taste-variant .proof-separator {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+html.taste-variant .intro-section h2 {
+  display: none;
+}
+
+html.taste-variant .intro-section {
+  padding-top: 76px;
+}
+
+html.taste-variant .service-card {
+  min-height: 154px;
+  border-radius: 5px;
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: none;
+  transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+html.taste-variant .service-card:hover,
+html.taste-variant .service-card:focus-visible {
+  border-color: var(--blue);
+  background: var(--white);
+  transform: translateY(-3px);
+}
+
+html.taste-variant .service-card:first-child,
+html.taste-variant .service-card:nth-child(4) {
+  grid-column: span 2;
+  background: var(--ink);
+  color: var(--white);
+}
+
+html.taste-variant .service-card:first-child small,
+html.taste-variant .service-card:nth-child(4) small {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+html.taste-variant .service-card:first-child .service-icon,
+html.taste-variant .service-card:nth-child(4) .service-icon,
+html.taste-variant .service-card:first-child .service-arrow,
+html.taste-variant .service-card:nth-child(4) .service-arrow {
+  color: #a9caff;
+}
+
+html.taste-variant .service-group-special {
+  padding-left: 30px;
+  border-left-color: var(--line);
+}
+
+html.taste-variant .form-panel,
+html.taste-variant .contact-form {
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+}
+
+html.taste-variant .form-fieldset {
+  border-radius: 5px;
+}
+
+html.taste-variant .contact-form {
+  background: var(--ink);
+}
+
+html.taste-variant .review-grid figure {
+  border-radius: 5px;
+  box-shadow: none;
+}
+
+html.taste-variant .site-footer {
+  border-top-color: var(--line);
+}
+
+html.taste-variant .cookie-banner {
+  border-radius: 5px;
+}
+
+@media (max-width: 950px) {
+  html.taste-variant .hero {
+    grid-template-columns: 1fr;
+  }
+
+  html.taste-variant .hero-portrait {
+    transform: none;
+  }
+
+  html.taste-variant .service-group-special {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  html.taste-variant .hero {
+    padding-top: 42px;
+  }
+
+  html.taste-variant .hero h1 {
+    font-size: clamp(48px, 15vw, 70px);
+  }
+
+  html.taste-variant .hero-portrait,
+  html.taste-variant .hero-portrait img {
+    min-height: 390px;
+  }
+
+  html.taste-variant .service-card:first-child,
+  html.taste-variant .service-card:nth-child(4) {
+    grid-column: span 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.taste-variant .service-card {
+    transition: none;
+  }
+}

@@ -1,0 +1,2646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASSURÉCO – Assurances Économiques</title>
+
+  <style>
+    :root {
+      --yellow: #ffe84a;
+      --red: #ef4444;
+      --blue: #1e3aeb;
+      --blue-light: #4f6bff;
+      --white: #ffffff;
+      --gray: #94a3b8;
+      --bg-dark: #0a0d14;
+      --card-dark: #121824;
+      --input-dark: #0d111a;
+      --border: rgba(255,255,255,0.14);
+      --icon-bg: rgba(25,40,90,0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: var(--bg-dark);
+      color: var(--white);
+      font-family: system-ui, sans-serif;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .hero-box,
+    .section-card,
+    .questionnaire-section,
+    .reviews-section {
+      background: var(--card-dark);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .hero-box {
+      display: grid;
+      grid-template-columns: 1fr 250px;
+      gap: 20px;
+    }
+
+    .brand-subtitle {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      color: #000;
+      font-size: .8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .broker-name-highlight {
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      border-left: 5px solid var(--blue);
+      border-radius: 10px;
+      background: rgba(255,255,255,.06);
+      font-size: 1.6rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .broker-name-highlight span {
+      color: var(--gray);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .main-headline {
+      margin: 0 0 10px;
+      font-size: 2.2rem;
+      font-weight: 900;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .compare-text {
+      margin-bottom: 20px;
+      color: var(--gray);
+    }
+
+    .devis-box {
+      padding: 16px;
+      border: 2px solid var(--red);
+      border-radius: 12px;
+      background: rgba(239,68,68,.1);
+      text-align: center;
+    }
+
+    .devis-label {
+      margin-bottom: 8px;
+      color: var(--red);
+      font-size: .85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .phone-number {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--white);
+      font-size: 2.4rem;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .phone-sub {
+      margin-bottom: 14px;
+      color: var(--white);
+      font-size: .95rem;
+      font-weight: 900;
+    }
+
+    .btn-call,
+    .contact-form-link,
+    .category-button,
+    .google-reviews-link,
+    .form-submit {
+      font-weight: 900;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .btn-call {
+      display: inline-block;
+      padding: 10px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, var(--blue), var(--white), var(--red));
+      color: #000;
+      font-size: .85rem;
+      text-transform: uppercase;
+    }
+
+    .hero-right {
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255,255,255,.05);
+      text-align: center;
+    }
+
+    .broker-photo {
+      width: 150px;
+      height: 180px;
+      margin-bottom: 12px;
+      border: 3px solid var(--white);
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .avis-title,
+    .stars,
+    .rating-score {
+      color: var(--yellow);
+      font-weight: 900;
+    }
+
+    .rating-score {
+      font-size: 1.6rem;
+    }
+
+    .contact-link {
+      display: inline-block;
+      margin-top: 10px;
+      color: #93c5fd;
+      font-size: .85rem;
+      text-decoration: underline;
+    }
+
+    .contact-form-link {
+      display: block;
+      margin-top: 18px;
+      padding: 13px 10px;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--blue), var(--blue-light));
+      color: var(--white);
+      text-align: center;
+      font-size: .9rem;
+    }
+
+    .sub-header {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .user-icon {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #000;
+    }
+
+    .sub-header h2 {
+      margin: 0;
+      color: var(--blue-light);
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .sub-header p {
+      margin: 4px 0 0;
+    }
+
+    .main-slogan {
+      margin: 20px 0;
+      color: var(--red);
+      font-size: 1.4rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .category-title {
+      margin: 26px 0 16px;
+      color: var(--gray);
+      font-size: .75rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .grid-icons {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 155px;
+      padding: 14px;
+      border: 1px solid var(--white);
+      border-radius: 12px;
+      background: var(--icon-bg);
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    .icon-label {
+      margin-top: 8px;
+      font-size: .85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .category-button {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 7px;
+      background: var(--red);
+      color: var(--white);
+      font-size: .7rem;
+      line-height: 1.1;
+      text-align: center;
+    }
+
+    .questionnaire-section h2 {
+      margin: 0 0 8px;
+      color: var(--yellow);
+      font-size: 1.7rem;
+      text-align: center;
+    }
+
+    .intro {
+      margin: 0 0 22px;
+      color: var(--gray);
+      text-align: center;
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+    }
+
+    fieldset {
+      padding: 16px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 10px;
+    }
+
+    legend {
+      padding: 0 8px;
+      color: var(--yellow);
+      font-weight: 900;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      font-size: .9rem;
+      font-weight: 800;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 8px;
+      background: var(--input-dark);
+      color: var(--white);
+      font: inherit;
+    }
+
+    select option {
+      background: var(--input-dark);
+      color: var(--white);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 2px solid var(--blue);
+      border-color: var(--blue);
+    }
+
+    .form-submit {
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 10px;
+      background: linear-gradient(90deg, var(--blue), var(--white), var(--red));
+      color: #000;
+      font-size: .95rem;
+    }
+
+    .review-card {
+      margin-bottom: 18px;
+      padding: 16px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.06);
+    }
+
+    .review-stars {
+      color: var(--yellow);
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .review-text {
+      margin-top: 6px;
+      font-size: .95rem;
+      font-weight: 700;
+    }
+
+    .review-author {
+      margin-top: 4px;
+      color: var(--gray);
+      font-size: .8rem;
+    }
+
+    .google-reviews-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: var(--yellow);
+      color: #000;
+      font-size: .9rem;
+    }
+
+    footer {
+      padding: 10px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      background: #0d111a;
+      color: #cbd5e1;
+      font-size: .78rem;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    footer a {
+      color: #cbd5e1;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+
+      .hero-box {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-icons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .main-headline {
+        font-size: 1.8rem;
+      }
+
+      .phone-number {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <section class="hero-box">
+
+    <div>
+      <div class="brand-subtitle">
+        Assurances Économiques
+      </div>
+
+      <div class="broker-name-highlight">
+        Laurent Pasquier<br>
+        <span>COURTIER EN ASSURANCES</span>
+      </div>
+
+      <h1 class="main-headline">
+        Mieux assuré<br>
+        moins cher
+      </h1>
+
+      <p class="compare-text">
+        Comparez, économisez, choisissez mieux.
+      </p>
+
+      <div class="devis-box">
+        <div class="devis-label">
+          — Devis immédiat —
+        </div>
+
+        <a href="tel:0241782542" class="phone-number">
+          02 41 78 25 42
+        </a>
+
+        <div class="phone-sub">
+          Par téléphone ou e-mail : assureco49@wanadoo.fr
+        </div>
+
+        <a href="tel:0241782542" class="btn-call">
+          📞 Appelez-nous dès maintenant !
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+
+      <img
+        src="laurent.jpg"
+        class="broker-photo"
+        alt="Laurent Pasquier, courtier en assurances">
+
+      <div class="avis-title">
+        Avis Assuréco
+      </div>
+
+      <div class="stars">
+        ★★★★★
+      </div>
+
+      <div class="rating-score">
+        4,9 / 5
+      </div>
+
+      <a
+        href="mailto:assureco49@wanadoo.fr"
+        class="contact-link">
+        ✉️ assureco49@wanadoo.fr
+      </a>
+
+      <a href="#q-contact" class="contact-form-link">
+        ✉️ Contactez Laurent Pasquier
+      </a>
+
+      <a
+        href="https://www.google.com/search?q=Assur%C3%A9co+Laurent+Pasquier+avis"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-link">
+        Consultez les avis Google
+      </a>
+
+    </div>
+  </section>
+
+  <section class="section-card">
+
+    <div class="sub-header">
+      <div class="user-icon">👤</div>
+
+      <div>
+        <h2>
+          Assuréco - Votre courtier en assurance économique
+        </h2>
+
+        <p>
+          Solutions sur mesure pour particuliers et professionnels...
+        </p>
+      </div>
+    </div>
+
+    <div class="main-slogan">
+      Les meilleures assurances au meilleur prix
+    </div>
+
+    <div class="category-title">
+      Assurances du quotidien
+    </div>
+
+    <div class="grid-icons">
+
+      <div class="icon-item">
+        🚗
+        <span class="icon-label">Auto</span>
+        <a href="#q-auto" class="category-button">
+          Demander un devis
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🏍️
+        <span class="icon-label">Moto</span>
+        <a href="#q-moto" class="category-button">
+          Demander un devis
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🏠
+        <span class="icon-label">Habitation</span>
+        <a href="#q-habitation" class="category-button">
+          Demander un devis
+        </a>
+      </div>
+
+      <div class="icon-item">
+        ➕
+        <span class="icon-label">Santé</span>
+        <a href="#q-sante" class="category-button">
+          Demander un devis
+        </a>
+      </div>
+
+      <div class="icon-item">
+        📄
+        <span class="icon-label">Assurance prêt</span>
+        <a href="#q-pret" class="category-button">
+          Demander un devis
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🛡️
+        <span class="icon-label">Assurance vie</span>
+        <a href="#q-vie" class="category-button">
+          Demander un devis
+        </a>
+      </div>
+
+    </div>
+
+    <div class="category-title">
+      Spécialités dossiers complexes
+    </div>
+
+    <div class="grid-icons">
+
+      <div class="icon-item">
+        🚕
+        <span class="icon-label">VTC / Taxi</span>
+        <a href="#q-vtc" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🚐
+        <span class="icon-label">Camping-car</span>
+        <a href="#q-camping" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        ⚠️
+        <span class="icon-label">Résilié impayés</span>
+        <a href="#q-resilie" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🎓
+        <span class="icon-label">Jeune permis</span>
+        <a href="#q-jeune" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        ⚠️
+        <span class="icon-label">Non-paiement</span>
+        <a href="#q-nonpaiement" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        📅
+        <span class="icon-label">Temporaire</span>
+        <a href="#q-temporaire" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+    </div>
+
+    <div class="grid-icons">
+
+      <div class="icon-item">
+        🚙
+        <span class="icon-label">Flotte auto</span>
+        <a href="#q-flotte" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🚘
+        <span class="icon-label">Collection</span>
+        <a href="#q-collection" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🔒
+        <span class="icon-label">Alcoolémie</span>
+        <a href="#q-alcool" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        🧪
+        <span class="icon-label">Stupéfiants</span>
+        <a href="#q-stupefiants" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        📝
+        <span class="icon-label">Sans antécédent</span>
+        <a href="#q-sans-antecedent" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+      <div class="icon-item">
+        ❌
+        <span class="icon-label">Défaut assurance</span>
+        <a href="#q-defaut" class="category-button">
+          Questionnaire complet
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="q-contact" class="questionnaire-section">
+
+    <h2>✉️ Contactez Laurent Pasquier</h2>
+
+    <p class="intro">
+      ASSURÉCO - Réponse rapide garantie sous 24h
+    </p>
+
+    <form
+      action="mailto:assureco49@wanadoo.fr"
+      method="post"
+      enctype="text/plain">
+
+      <div class="form-group">
+        <label for="contact-nom">
+          Nom &amp; prénom *
+        </label>
+
+        <input
+          type="text"
+          id="contact-nom"
+          name="Nom et prénom"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-tel">
+          Téléphone *
+        </label>
+
+        <input
+          type="tel"
+          id="contact-tel"
+          name="Téléphone"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-email">
+          Adresse e-mail *
+        </label>
+
+        <input
+          type="email"
+          id="contact-email"
+          name="Adresse e-mail"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="contact-message">
+          Votre message *
+        </label>
+
+        <textarea
+          id="contact-message"
+          name="Message"
+          required></textarea>
+      </div>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer ma demande directement
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-auto" class="questionnaire-section">
+
+    <h2>🚗 Questionnaire assurance Auto</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre assurance automobile.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Assurance Auto">
+
+      <fieldset>
+        <legend>Vos coordonnées</legend>
+
+        <div class="form-group">
+          <label for="auto-nom">Nom *</label>
+          <input type="text" id="auto-nom" name="Nom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-prenom">Prénom *</label>
+          <input type="text" id="auto-prenom" name="Prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-naissance">Date de naissance *</label>
+          <input type="date" id="auto-naissance" name="Date de naissance" required>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-adresse">Adresse complète *</label>
+          <input type="text" id="auto-adresse" name="Adresse complète" required>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-telephone">Téléphone *</label>
+          <input type="tel" id="auto-telephone" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-email">Adresse e-mail *</label>
+          <input type="email" id="auto-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Conducteur</legend>
+
+        <div class="form-group">
+          <label for="auto-permis-date">Date d'obtention du permis</label>
+          <input type="date" id="auto-permis-date" name="Date d'obtention du permis">
+        </div>
+
+        <div class="form-group">
+          <label for="auto-permis-valide">Votre permis est-il valide ?</label>
+
+          <select id="auto-permis-valide" name="Permis valide">
+            <option value="">Sélectionnez</option>
+            <option>Oui</option>
+            <option>Non</option>
+            <option>Suspension ou annulation en cours</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-conduite">Conduite accompagnée</label>
+
+          <select id="auto-conduite" name="Conduite accompagnée">
+            <option value="">Sélectionnez</option>
+            <option>Oui</option>
+            <option>Non</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-autres-conducteurs">
+            Autres conducteurs à assurer
+          </label>
+
+          <textarea
+            id="auto-autres-conducteurs"
+            name="Autres conducteurs"
+            placeholder="Nom, prénom, date de naissance et date du permis..."></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule</legend>
+
+        <div class="form-group">
+          <label for="auto-marque">Marque et modèle</label>
+          <input type="text" id="auto-marque" name="Marque et modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="auto-immat">Immatriculation</label>
+          <input type="text" id="auto-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="auto-date-circulation">
+            Date de première mise en circulation
+          </label>
+
+          <input
+            type="date"
+            id="auto-date-circulation"
+            name="Date de première mise en circulation">
+        </div>
+
+        <div class="form-group">
+          <label for="auto-usage">Usage principal</label>
+
+          <select id="auto-usage" name="Usage principal">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Privé et trajet travail</option>
+            <option>Professionnel</option>
+            <option>VTC ou taxi</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-kilometrage">Kilométrage annuel estimé</label>
+          <input type="text" id="auto-kilometrage" name="Kilométrage annuel">
+        </div>
+
+        <div class="form-group">
+          <label for="auto-stationnement">Lieu de stationnement</label>
+          <input type="text" id="auto-stationnement" name="Lieu de stationnement">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Antécédents</legend>
+
+        <div class="form-group">
+          <label for="auto-assureur">Assureur actuel ou précédent</label>
+          <input type="text" id="auto-assureur" name="Assureur précédent">
+        </div>
+
+        <div class="form-group">
+          <label for="auto-releve">Possédez-vous un relevé d'information ?</label>
+
+          <select id="auto-releve" name="Relevé d'information">
+            <option value="">Sélectionnez</option>
+            <option>Oui</option>
+            <option>Non</option>
+            <option>En cours de demande</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-resiliation">Votre contrat a-t-il été résilié ?</label>
+
+          <select id="auto-resiliation" name="Contrat résilié">
+            <option value="">Sélectionnez</option>
+            <option>Non</option>
+            <option>Oui pour non-paiement</option>
+            <option>Oui pour sinistres</option>
+            <option>Oui pour autre motif</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="auto-sinistres">
+            Sinistres, infractions ou précisions
+          </label>
+
+          <textarea
+            id="auto-sinistres"
+            name="Sinistres et infractions"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande Auto
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-moto" class="questionnaire-section">
+
+    <h2>🏍️ Questionnaire assurance Moto</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre assurance moto.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Assurance Moto">
+
+      <fieldset>
+        <legend>Vos coordonnées</legend>
+
+        <div class="form-group">
+          <label for="moto-nom">Nom &amp; prénom *</label>
+          <input type="text" id="moto-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="moto-naissance">Date de naissance</label>
+          <input type="date" id="moto-naissance" name="Date de naissance">
+        </div>
+
+        <div class="form-group">
+          <label for="moto-tel">Téléphone *</label>
+          <input type="tel" id="moto-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="moto-email">Adresse e-mail *</label>
+          <input type="email" id="moto-email" name="Adresse e-mail" required>
+        </div>
+
+        <div class="form-group">
+          <label for="moto-adresse">Adresse</label>
+          <input type="text" id="moto-adresse" name="Adresse">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Conducteur et moto</legend>
+
+        <div class="form-group">
+          <label for="moto-permis">Date d'obtention du permis</label>
+          <input type="date" id="moto-permis" name="Date du permis">
+        </div>
+
+        <div class="form-group">
+          <label for="moto-experience">Expérience moto</label>
+          <input type="text" id="moto-experience" name="Expérience moto">
+        </div>
+
+        <div class="form-group">
+          <label for="moto-marque">Marque et modèle</label>
+          <input type="text" id="moto-marque" name="Marque et modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="moto-cylindree">Cylindrée</label>
+          <input type="text" id="moto-cylindree" name="Cylindrée">
+        </div>
+
+        <div class="form-group">
+          <label for="moto-immat">Immatriculation</label>
+          <input type="text" id="moto-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="moto-usage">Usage</label>
+
+          <select id="moto-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Loisirs</option>
+            <option>Privé</option>
+            <option>Privé et trajet travail</option>
+            <option>Professionnel</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Historique</legend>
+
+        <div class="form-group">
+          <label for="moto-assureur">Assureur actuel ou précédent</label>
+          <input type="text" id="moto-assureur" name="Assureur précédent">
+        </div>
+
+        <div class="form-group">
+          <label for="moto-sinistres">Sinistres ou infractions</label>
+          <textarea id="moto-sinistres" name="Sinistres ou infractions"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande Moto
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-habitation" class="questionnaire-section">
+
+    <h2>🏠 Questionnaire assurance Habitation</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre logement.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Assurance Habitation">
+
+      <fieldset>
+        <legend>Vos coordonnées</legend>
+
+        <div class="form-group">
+          <label for="hab-nom">Nom &amp; prénom *</label>
+          <input type="text" id="hab-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="hab-tel">Téléphone *</label>
+          <input type="tel" id="hab-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="hab-email">Adresse e-mail *</label>
+          <input type="email" id="hab-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Logement</legend>
+
+        <div class="form-group">
+          <label for="hab-statut">Vous êtes</label>
+
+          <select id="hab-statut" name="Statut">
+            <option value="">Sélectionnez</option>
+            <option>Locataire</option>
+            <option>Propriétaire occupant</option>
+            <option>Propriétaire non occupant</option>
+            <option>Occupant à titre gratuit</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hab-adresse">Adresse du logement</label>
+          <input type="text" id="hab-adresse" name="Adresse du logement">
+        </div>
+
+        <div class="form-group">
+          <label for="hab-type">Type de logement</label>
+
+          <select id="hab-type" name="Type de logement">
+            <option value="">Sélectionnez</option>
+            <option>Appartement</option>
+            <option>Maison</option>
+            <option>Studio</option>
+            <option>Immeuble</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="hab-pieces">Nombre de pièces principales</label>
+          <input type="number" id="hab-pieces" name="Nombre de pièces" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="hab-surface">Surface approximative</label>
+          <input type="text" id="hab-surface" name="Surface">
+        </div>
+
+        <div class="form-group">
+          <label for="hab-dependances">Dépendances, garage ou cave</label>
+          <textarea id="hab-dependances" name="Dépendances"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="hab-capital">Valeur approximative du mobilier</label>
+          <input type="text" id="hab-capital" name="Valeur du mobilier">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Garanties et historique</legend>
+
+        <div class="form-group">
+          <label for="hab-garanties">Garanties souhaitées</label>
+          <textarea id="hab-garanties" name="Garanties souhaitées"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="hab-sinistres">Sinistres précédents</label>
+          <textarea id="hab-sinistres" name="Sinistres précédents"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande Habitation
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-sante" class="questionnaire-section">
+
+    <h2>➕ Questionnaire Mutuelle Santé</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre besoin santé.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Mutuelle Santé">
+
+      <fieldset>
+        <legend>Vos coordonnées</legend>
+
+        <div class="form-group">
+          <label for="sante-nom">Nom &amp; prénom *</label>
+          <input type="text" id="sante-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="sante-naissance">Date de naissance</label>
+          <input type="date" id="sante-naissance" name="Date de naissance">
+        </div>
+
+        <div class="form-group">
+          <label for="sante-tel">Téléphone *</label>
+          <input type="tel" id="sante-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="sante-email">Adresse e-mail *</label>
+          <input type="email" id="sante-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Besoins</legend>
+
+        <div class="form-group">
+          <label for="sante-regime">Régime social</label>
+          <input type="text" id="sante-regime" name="Régime social">
+        </div>
+
+        <div class="form-group">
+          <label for="sante-beneficiaires">Nombre de bénéficiaires</label>
+          <input type="number" id="sante-beneficiaires" name="Nombre de bénéficiaires" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="sante-besoins">Besoins prioritaires</label>
+          <textarea id="sante-besoins" name="Besoins prioritaires"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="sante-budget">Budget mensuel souhaité</label>
+          <input type="text" id="sante-budget" name="Budget mensuel">
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande Santé
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-pret" class="questionnaire-section">
+
+    <h2>📄 Questionnaire assurance prêt</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre assurance emprunteur.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Assurance Prêt">
+
+      <fieldset>
+        <legend>Vos coordonnées</legend>
+
+        <div class="form-group">
+          <label for="pret-nom">Nom &amp; prénom *</label>
+          <input type="text" id="pret-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pret-tel">Téléphone *</label>
+          <input type="tel" id="pret-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="pret-email">Adresse e-mail *</label>
+          <input type="email" id="pret-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Projet</legend>
+
+        <div class="form-group">
+          <label for="pret-type">Nature du projet</label>
+
+          <select id="pret-type" name="Nature du projet">
+            <option value="">Sélectionnez</option>
+            <option>Résidence principale</option>
+            <option>Résidence secondaire</option>
+            <option>Investissement locatif</option>
+            <option>Prêt professionnel</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="pret-capital">Capital emprunté</label>
+          <input type="text" id="pret-capital" name="Capital emprunté">
+        </div>
+
+        <div class="form-group">
+          <label for="pret-duree">Durée du prêt</label>
+          <input type="text" id="pret-duree" name="Durée du prêt">
+        </div>
+
+        <div class="form-group">
+          <label for="pret-emprunteurs">Nombre d'emprunteurs</label>
+          <input type="number" id="pret-emprunteurs" name="Nombre d'emprunteurs" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="pret-message">Informations complémentaires</label>
+          <textarea id="pret-message" name="Informations complémentaires"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande assurance prêt
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-vie" class="questionnaire-section">
+
+    <h2>🛡️ Questionnaire assurance vie</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre projet d'assurance vie.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Assurance Vie">
+
+      <fieldset>
+        <legend>Vos coordonnées</legend>
+
+        <div class="form-group">
+          <label for="vie-nom">Nom &amp; prénom *</label>
+          <input type="text" id="vie-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="vie-naissance">Date de naissance</label>
+          <input type="date" id="vie-naissance" name="Date de naissance">
+        </div>
+
+        <div class="form-group">
+          <label for="vie-tel">Téléphone *</label>
+          <input type="tel" id="vie-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="vie-email">Adresse e-mail *</label>
+          <input type="email" id="vie-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Projet</legend>
+
+        <div class="form-group">
+          <label for="vie-objectif">Objectif principal</label>
+
+          <select id="vie-objectif" name="Objectif principal">
+            <option value="">Sélectionnez</option>
+            <option>Épargne</option>
+            <option>Transmission</option>
+            <option>Préparation de la retraite</option>
+            <option>Protection de la famille</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vie-montant">Montant envisagé</label>
+          <input type="text" id="vie-montant" name="Montant envisagé">
+        </div>
+
+        <div class="form-group">
+          <label for="vie-versements">Type de versements</label>
+
+          <select id="vie-versements" name="Type de versements">
+            <option value="">Sélectionnez</option>
+            <option>Versement unique</option>
+            <option>Versements réguliers</option>
+            <option>Versement unique et réguliers</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vie-message">Votre projet</label>
+          <textarea id="vie-message" name="Votre projet"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande assurance vie
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-vtc" class="questionnaire-section">
+
+    <h2>🚕 Questionnaire VTC / Taxi</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre activité VTC ou taxi.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="VTC / Taxi">
+
+      <fieldset>
+        <legend>Coordonnées et entreprise</legend>
+
+        <div class="form-group">
+          <label for="vtc-nom">Nom &amp; prénom *</label>
+          <input type="text" id="vtc-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-tel">Téléphone *</label>
+          <input type="tel" id="vtc-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-email">Adresse e-mail *</label>
+          <input type="email" id="vtc-email" name="Adresse e-mail" required>
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-societe">Nom de la société</label>
+          <input type="text" id="vtc-societe" name="Nom de la société">
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-siret">SIRET ou SIREN</label>
+          <input type="text" id="vtc-siret" name="SIRET ou SIREN">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Activité et véhicule</legend>
+
+        <div class="form-group">
+          <label for="vtc-activite">Type d'activité</label>
+
+          <select id="vtc-activite" name="Type d'activité">
+            <option value="">Sélectionnez</option>
+            <option>VTC</option>
+            <option>Taxi</option>
+            <option>VTC et Taxi</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-date">Date de début d'activité</label>
+          <input type="date" id="vtc-date" name="Date de début d'activité">
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-vehicule">Marque et modèle du véhicule</label>
+          <input type="text" id="vtc-vehicule" name="Véhicule">
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-immat">Immatriculation</label>
+          <input type="text" id="vtc-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-plateformes">Plateformes utilisées</label>
+          <input type="text" id="vtc-plateformes" name="Plateformes utilisées">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Historique</legend>
+
+        <div class="form-group">
+          <label for="vtc-assureur">Assureur actuel ou précédent</label>
+          <input type="text" id="vtc-assureur" name="Assureur précédent">
+        </div>
+
+        <div class="form-group">
+          <label for="vtc-sinistres">Sinistres ou résiliation</label>
+          <textarea id="vtc-sinistres" name="Sinistres ou résiliation"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande VTC / Taxi
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-camping" class="questionnaire-section">
+
+    <h2>🚐 Questionnaire camping-car</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre camping-car.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Camping-car">
+
+      <fieldset>
+        <legend>Coordonnées</legend>
+
+        <div class="form-group">
+          <label for="camp-nom">Nom &amp; prénom *</label>
+          <input type="text" id="camp-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="camp-tel">Téléphone *</label>
+          <input type="tel" id="camp-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="camp-email">Adresse e-mail *</label>
+          <input type="email" id="camp-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Camping-car</legend>
+
+        <div class="form-group">
+          <label for="camp-marque">Marque</label>
+          <input type="text" id="camp-marque" name="Marque">
+        </div>
+
+        <div class="form-group">
+          <label for="camp-modele">Modèle</label>
+          <input type="text" id="camp-modele" name="Modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="camp-immat">Immatriculation</label>
+          <input type="text" id="camp-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="camp-annee">Année de mise en circulation</label>
+          <input type="number" id="camp-annee" name="Année de mise en circulation">
+        </div>
+
+        <div class="form-group">
+          <label for="camp-valeur">Valeur approximative</label>
+          <input type="text" id="camp-valeur" name="Valeur approximative">
+        </div>
+
+        <div class="form-group">
+          <label for="camp-usage">Usage</label>
+
+          <select id="camp-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Loisirs</option>
+            <option>Voyages fréquents</option>
+            <option>Résidence mobile</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="camp-stationnement">Lieu de stationnement</label>
+          <input type="text" id="camp-stationnement" name="Lieu de stationnement">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Historique</legend>
+
+        <div class="form-group">
+          <label for="camp-assureur">Assureur actuel ou précédent</label>
+          <input type="text" id="camp-assureur" name="Assureur précédent">
+        </div>
+
+        <div class="form-group">
+          <label for="camp-sinistres">Sinistres récents</label>
+          <textarea id="camp-sinistres" name="Sinistres récents"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande camping-car
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-resilie" class="questionnaire-section">
+
+    <h2>⚠️ Questionnaire résilié impayés</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant la résiliation pour impayés.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Résilié impayés">
+
+      <fieldset>
+        <legend>Coordonnées</legend>
+
+        <div class="form-group">
+          <label for="resilie-nom">Nom &amp; prénom *</label>
+          <input type="text" id="resilie-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="resilie-tel">Téléphone *</label>
+          <input type="tel" id="resilie-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="resilie-email">Adresse e-mail *</label>
+          <input type="email" id="resilie-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Résiliation</legend>
+
+        <div class="form-group">
+          <label for="resilie-assureur">Ancien assureur</label>
+          <input type="text" id="resilie-assureur" name="Ancien assureur">
+        </div>
+
+        <div class="form-group">
+          <label for="resilie-date">Date de résiliation</label>
+          <input type="date" id="resilie-date" name="Date de résiliation">
+        </div>
+
+        <div class="form-group">
+          <label for="resilie-regle">L'impayé est-il régularisé ?</label>
+
+          <select id="resilie-regle" name="Impayé régularisé">
+            <option value="">Sélectionnez</option>
+            <option>Oui</option>
+            <option>Non</option>
+            <option>En cours</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="resilie-details">Détails de la situation</label>
+          <textarea id="resilie-details" name="Détails de la situation"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule concerné</legend>
+
+        <div class="form-group">
+          <label for="resilie-vehicule">Marque et modèle</label>
+          <input type="text" id="resilie-vehicule" name="Marque et modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="resilie-immat">Immatriculation</label>
+          <input type="text" id="resilie-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="resilie-usage">Usage</label>
+          <select id="resilie-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Professionnel</option>
+            <option>VTC / Taxi</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande résilié impayés
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-jeune" class="questionnaire-section">
+
+    <h2>🎓 Questionnaire jeune permis</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant le jeune conducteur.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Jeune permis">
+
+      <fieldset>
+        <legend>Conducteur</legend>
+
+        <div class="form-group">
+          <label for="jeune-nom">Nom &amp; prénom *</label>
+          <input type="text" id="jeune-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="jeune-naissance">Date de naissance</label>
+          <input type="date" id="jeune-naissance" name="Date de naissance">
+        </div>
+
+        <div class="form-group">
+          <label for="jeune-tel">Téléphone *</label>
+          <input type="tel" id="jeune-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="jeune-email">Adresse e-mail *</label>
+          <input type="email" id="jeune-email" name="Adresse e-mail" required>
+        </div>
+
+        <div class="form-group">
+          <label for="jeune-permis">Date d'obtention du permis</label>
+          <input type="date" id="jeune-permis" name="Date du permis">
+        </div>
+
+        <div class="form-group">
+          <label for="jeune-conduite">Conduite accompagnée</label>
+
+          <select id="jeune-conduite" name="Conduite accompagnée">
+            <option value="">Sélectionnez</option>
+            <option>Oui</option>
+            <option>Non</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule</legend>
+
+        <div class="form-group">
+          <label for="jeune-vehicule">Marque et modèle</label>
+          <input type="text" id="jeune-vehicule" name="Marque et modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="jeune-immat">Immatriculation</label>
+          <input type="text" id="jeune-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="jeune-usage">Usage</label>
+
+          <select id="jeune-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Privé et trajet travail</option>
+            <option>Professionnel</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande jeune permis
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-nonpaiement" class="questionnaire-section">
+
+    <h2>⚠️ Questionnaire non-paiement</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre situation de non-paiement.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Non-paiement">
+
+      <fieldset>
+        <legend>Coordonnées</legend>
+
+        <div class="form-group">
+          <label for="nonpaiement-nom">Nom &amp; prénom *</label>
+          <input type="text" id="nonpaiement-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="nonpaiement-tel">Téléphone *</label>
+          <input type="tel" id="nonpaiement-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="nonpaiement-email">Adresse e-mail *</label>
+          <input type="email" id="nonpaiement-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Situation d'assurance</legend>
+
+        <div class="form-group">
+          <label for="nonpaiement-assureur">Assureur précédent</label>
+          <input type="text" id="nonpaiement-assureur" name="Assureur précédent">
+        </div>
+
+        <div class="form-group">
+          <label for="nonpaiement-date">Date de l'impayé ou résiliation</label>
+          <input type="date" id="nonpaiement-date" name="Date de l'impayé">
+        </div>
+
+        <div class="form-group">
+          <label for="nonpaiement-regle">Situation de la dette</label>
+
+          <select id="nonpaiement-regle" name="Situation de la dette">
+            <option value="">Sélectionnez</option>
+            <option>Régularisée</option>
+            <option>Non régularisée</option>
+            <option>En cours de règlement</option>
+            <option>Je ne sais pas</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nonpaiement-details">Explications</label>
+          <textarea id="nonpaiement-details" name="Explications"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule</legend>
+
+        <div class="form-group">
+          <label for="nonpaiement-vehicule">Marque, modèle et immatriculation</label>
+          <input type="text" id="nonpaiement-vehicule" name="Véhicule">
+        </div>
+
+        <div class="form-group">
+          <label for="nonpaiement-usage">Usage</label>
+
+          <select id="nonpaiement-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Professionnel</option>
+            <option>VTC / Taxi</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande non-paiement
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-temporaire" class="questionnaire-section">
+
+    <h2>📅 Questionnaire assurance temporaire</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre assurance temporaire.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Assurance temporaire">
+
+      <fieldset>
+        <legend>Coordonnées</legend>
+
+        <div class="form-group">
+          <label for="temp-nom">Nom &amp; prénom *</label>
+          <input type="text" id="temp-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="temp-tel">Téléphone *</label>
+          <input type="tel" id="temp-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="temp-email">Adresse e-mail *</label>
+          <input type="email" id="temp-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Durée</legend>
+
+        <div class="form-group">
+          <label for="temp-debut">Date de début *</label>
+          <input type="date" id="temp-debut" name="Date de début" required>
+        </div>
+
+        <div class="form-group">
+          <label for="temp-fin">Date de fin *</label>
+          <input type="date" id="temp-fin" name="Date de fin" required>
+        </div>
+
+        <div class="form-group">
+          <label for="temp-motif">Motif de la demande</label>
+          <textarea id="temp-motif" name="Motif"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule</legend>
+
+        <div class="form-group">
+          <label for="temp-vehicule">Marque et modèle</label>
+          <input type="text" id="temp-vehicule" name="Marque et modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="temp-immat">Immatriculation</label>
+          <input type="text" id="temp-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="temp-usage">Usage</label>
+
+          <select id="temp-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Professionnel</option>
+            <option>Transit ou déplacement</option>
+            <option>Importation ou exportation</option>
+            <option>Autre</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande temporaire
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-flotte" class="questionnaire-section">
+
+    <h2>🚙 Questionnaire flotte auto / professionnel</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre flotte professionnelle.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Flotte auto / Professionnel">
+
+      <fieldset>
+        <legend>Entreprise</legend>
+
+        <div class="form-group">
+          <label for="flotte-entreprise">Nom de l'entreprise *</label>
+          <input type="text" id="flotte-entreprise" name="Nom de l'entreprise" required>
+        </div>
+
+        <div class="form-group">
+          <label for="flotte-siret">SIRET ou SIREN</label>
+          <input type="text" id="flotte-siret" name="SIRET ou SIREN">
+        </div>
+
+        <div class="form-group">
+          <label for="flotte-activite">Activité principale *</label>
+          <input type="text" id="flotte-activite" name="Activité principale" required>
+        </div>
+
+        <div class="form-group">
+          <label for="flotte-contact">Responsable *</label>
+          <textarea id="flotte-contact" name="Coordonnées du responsable" required></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Flotte</legend>
+
+        <div class="form-group">
+          <label for="flotte-nombre">Nombre de véhicules</label>
+          <input type="number" id="flotte-nombre" name="Nombre de véhicules" min="1">
+        </div>
+
+        <div class="form-group">
+          <label for="flotte-usage">Type d'utilisation</label>
+
+          <select id="flotte-usage" name="Type d'utilisation">
+            <option value="">Sélectionnez</option>
+            <option>Transport de personnes</option>
+            <option>Transport de marchandises</option>
+            <option>Livraison</option>
+            <option>Bâtiment et travaux</option>
+            <option>VTC / Taxi</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="flotte-liste">Liste des véhicules</label>
+
+          <textarea
+            id="flotte-liste"
+            name="Liste des véhicules"
+            placeholder="Marque, modèle, année, immatriculation, valeur..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="flotte-zone">Zone de circulation</label>
+
+          <select id="flotte-zone" name="Zone de circulation">
+            <option value="">Sélectionnez</option>
+            <option>Départementale</option>
+            <option>Régionale</option>
+            <option>Nationale</option>
+            <option>Internationale</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Historique</legend>
+
+        <div class="form-group">
+          <label for="flotte-assureur">Assureur actuel ou précédent</label>
+          <input type="text" id="flotte-assureur" name="Assureur précédent">
+        </div>
+
+        <div class="form-group">
+          <label for="flotte-sinistres">Sinistres récents</label>
+          <textarea id="flotte-sinistres" name="Sinistres récents"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande flotte auto
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-collection" class="questionnaire-section">
+
+    <h2>🚘 Questionnaire véhicule de collection</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre véhicule de collection.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Véhicule de collection">
+
+      <fieldset>
+        <legend>Demandeur</legend>
+
+        <div class="form-group">
+          <label for="collection-nom">Nom &amp; prénom *</label>
+          <input type="text" id="collection-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="collection-tel">Téléphone *</label>
+          <input type="tel" id="collection-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="collection-email">Adresse e-mail *</label>
+          <input type="email" id="collection-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule de collection</legend>
+
+        <div class="form-group">
+          <label for="collection-marque">Marque</label>
+          <input type="text" id="collection-marque" name="Marque">
+        </div>
+
+        <div class="form-group">
+          <label for="collection-modele">Modèle</label>
+          <input type="text" id="collection-modele" name="Modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="collection-annee">Année</label>
+          <input type="number" id="collection-annee" name="Année" min="1900" max="2100">
+        </div>
+
+        <div class="form-group">
+          <label for="collection-immat">Immatriculation</label>
+          <input type="text" id="collection-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="collection-valeur">Valeur estimée</label>
+          <input type="text" id="collection-valeur" name="Valeur estimée">
+        </div>
+
+        <div class="form-group">
+          <label for="collection-usage">Utilisation</label>
+
+          <select id="collection-usage" name="Utilisation">
+            <option value="">Sélectionnez</option>
+            <option>Promenade</option>
+            <option>Rassemblements</option>
+            <option>Concours ou exposition</option>
+            <option>Domicile-travail</option>
+            <option>Professionnelle</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="collection-garage">Lieu de stationnement</label>
+          <input type="text" id="collection-garage" name="Lieu de stationnement">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Historique</legend>
+
+        <div class="form-group">
+          <label for="collection-assureur">Assureur actuel ou précédent</label>
+          <input type="text" id="collection-assureur" name="Assureur précédent">
+        </div>
+
+        <div class="form-group">
+          <label for="collection-sinistres">Sinistres récents</label>
+          <textarea id="collection-sinistres" name="Sinistres récents"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande véhicule de collection
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-alcool" class="questionnaire-section">
+
+    <h2>🔒 Questionnaire alcoolémie</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre situation administrative.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Alcoolémie">
+
+      <fieldset>
+        <legend>Coordonnées</legend>
+
+        <div class="form-group">
+          <label for="alcool-nom">Nom &amp; prénom *</label>
+          <input type="text" id="alcool-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="alcool-tel">Téléphone *</label>
+          <input type="tel" id="alcool-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="alcool-email">Adresse e-mail *</label>
+          <input type="email" id="alcool-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Situation du permis</legend>
+
+        <div class="form-group">
+          <label for="alcool-date">Date des faits</label>
+          <input type="date" id="alcool-date" name="Date des faits">
+        </div>
+
+        <div class="form-group">
+          <label for="alcool-permis">Situation actuelle du permis</label>
+
+          <select id="alcool-permis" name="Situation du permis">
+            <option value="">Sélectionnez</option>
+            <option>Permis valide</option>
+            <option>Suspension</option>
+            <option>Annulation</option>
+            <option>Invalidation</option>
+            <option>Récupération en cours</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="alcool-duree">Durée de la mesure</label>
+          <input type="text" id="alcool-duree" name="Durée de la mesure">
+        </div>
+
+        <div class="form-group">
+          <label for="alcool-details">Détails de la situation</label>
+          <textarea id="alcool-details" name="Détails de la situation"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule</legend>
+
+        <div class="form-group">
+          <label for="alcool-vehicule">Marque, modèle et immatriculation</label>
+          <input type="text" id="alcool-vehicule" name="Véhicule">
+        </div>
+
+        <div class="form-group">
+          <label for="alcool-usage">Usage</label>
+
+          <select id="alcool-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Professionnel</option>
+            <option>VTC / Taxi</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande alcoolémie
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-stupefiants" class="questionnaire-section">
+
+    <h2>🧪 Questionnaire stupéfiants</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre situation administrative.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Stupéfiants">
+
+      <fieldset>
+        <legend>Coordonnées</legend>
+
+        <div class="form-group">
+          <label for="stup-nom">Nom &amp; prénom *</label>
+          <input type="text" id="stup-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="stup-tel">Téléphone *</label>
+          <input type="tel" id="stup-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="stup-email">Adresse e-mail *</label>
+          <input type="email" id="stup-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Situation du permis</legend>
+
+        <div class="form-group">
+          <label for="stup-date">Date des faits</label>
+          <input type="date" id="stup-date" name="Date des faits">
+        </div>
+
+        <div class="form-group">
+          <label for="stup-permis">Situation actuelle du permis</label>
+
+          <select id="stup-permis" name="Situation du permis">
+            <option value="">Sélectionnez</option>
+            <option>Permis valide</option>
+            <option>Suspension</option>
+            <option>Annulation</option>
+            <option>Invalidation</option>
+            <option>Récupération en cours</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="stup-duree">Durée de la mesure</label>
+          <input type="text" id="stup-duree" name="Durée de la mesure">
+        </div>
+
+        <div class="form-group">
+          <label for="stup-details">Détails de la situation</label>
+          <textarea id="stup-details" name="Détails de la situation"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule</legend>
+
+        <div class="form-group">
+          <label for="stup-vehicule">Marque, modèle et immatriculation</label>
+          <input type="text" id="stup-vehicule" name="Véhicule">
+        </div>
+
+        <div class="form-group">
+          <label for="stup-usage">Usage</label>
+
+          <select id="stup-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Professionnel</option>
+            <option>VTC / Taxi</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande stupéfiants
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-sans-antecedent" class="questionnaire-section">
+
+    <h2>📝 Questionnaire sans antécédent</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre première assurance.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Sans antécédent">
+
+      <fieldset>
+        <legend>Demandeur</legend>
+
+        <div class="form-group">
+          <label for="sans-nom">Nom &amp; prénom *</label>
+          <input type="text" id="sans-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="sans-naissance">Date de naissance</label>
+          <input type="date" id="sans-naissance" name="Date de naissance">
+        </div>
+
+        <div class="form-group">
+          <label for="sans-tel">Téléphone *</label>
+          <input type="tel" id="sans-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="sans-email">Adresse e-mail *</label>
+          <input type="email" id="sans-email" name="Adresse e-mail" required>
+        </div>
+
+        <div class="form-group">
+          <label for="sans-adresse">Adresse</label>
+          <input type="text" id="sans-adresse" name="Adresse">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Permis et véhicule</legend>
+
+        <div class="form-group">
+          <label for="sans-permis">Date d'obtention du permis</label>
+          <input type="date" id="sans-permis" name="Date du permis">
+        </div>
+
+        <div class="form-group">
+          <label for="sans-vehicule">Marque et modèle</label>
+          <input type="text" id="sans-vehicule" name="Marque et modèle">
+        </div>
+
+        <div class="form-group">
+          <label for="sans-immat">Immatriculation</label>
+          <input type="text" id="sans-immat" name="Immatriculation">
+        </div>
+
+        <div class="form-group">
+          <label for="sans-usage">Usage</label>
+
+          <select id="sans-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Privé et professionnel</option>
+            <option>Professionnel</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Historique</legend>
+
+        <div class="form-group">
+          <label for="sans-releve">
+            Pourquoi n'avez-vous pas de relevé d'information ?
+          </label>
+
+          <textarea id="sans-releve" name="Absence de relevé"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="sans-details">Informations complémentaires</label>
+          <textarea id="sans-details" name="Informations complémentaires"></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande sans antécédent
+      </button>
+
+    </form>
+
+  </section>
+
+  <section id="q-defaut" class="questionnaire-section">
+
+    <h2>❌ Questionnaire défaut d'assurance</h2>
+
+    <p class="intro">
+      Complétez uniquement les informations concernant votre défaut d'assurance.
+    </p>
+
+    <form action="mailto:assureco49@wanadoo.fr" method="post" enctype="text/plain">
+
+      <input type="hidden" name="Type de demande" value="Défaut d'assurance">
+
+      <fieldset>
+        <legend>Coordonnées</legend>
+
+        <div class="form-group">
+          <label for="defaut-nom">Nom &amp; prénom *</label>
+          <input type="text" id="defaut-nom" name="Nom et prénom" required>
+        </div>
+
+        <div class="form-group">
+          <label for="defaut-tel">Téléphone *</label>
+          <input type="tel" id="defaut-tel" name="Téléphone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="defaut-email">Adresse e-mail *</label>
+          <input type="email" id="defaut-email" name="Adresse e-mail" required>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Situation</legend>
+
+        <div class="form-group">
+          <label for="defaut-date">Date du défaut d'assurance</label>
+          <input type="date" id="defaut-date" name="Date du défaut">
+        </div>
+
+        <div class="form-group">
+          <label for="defaut-circonstances">Circonstances</label>
+
+          <select id="defaut-circonstances" name="Circonstances">
+            <option value="">Sélectionnez</option>
+            <option>Contrat résilié</option>
+            <option>Oubli de renouvellement</option>
+            <option>Difficulté financière</option>
+            <option>Véhicule nouvellement acquis</option>
+            <option>Véhicule non utilisé</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="defaut-controle">
+            Avez-vous fait l'objet d'un contrôle ?
+          </label>
+
+          <select id="defaut-controle" name="Contrôle">
+            <option value="">Sélectionnez</option>
+            <option>Oui</option>
+            <option>Non</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="defaut-explications">Explications</label>
+          <textarea id="defaut-explications" name="Explications"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Véhicule et permis</legend>
+
+        <div class="form-group">
+          <label for="defaut-vehicule">
+            Marque, modèle et immatriculation
+          </label>
+
+          <input type="text" id="defaut-vehicule" name="Véhicule">
+        </div>
+
+        <div class="form-group">
+          <label for="defaut-permis">Date du permis</label>
+          <input type="date" id="defaut-permis" name="Date du permis">
+        </div>
+
+        <div class="form-group">
+          <label for="defaut-usage">Usage</label>
+
+          <select id="defaut-usage" name="Usage">
+            <option value="">Sélectionnez</option>
+            <option>Privé</option>
+            <option>Professionnel</option>
+            <option>VTC / Taxi</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="form-submit">
+        🚀 Envoyer la demande défaut d'assurance
+      </button>
+
+    </form>
+
+  </section>
+
+  <section class="reviews-section">
+
+    <h2 style="color:#ffe84a;text-align:center;">
+      ⭐ Avis de nos clients ⭐
+    </h2>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+
+      <div class="review-text">
+        “Service impeccable, très réactif et toujours de bons conseils. J’ai économisé plus de 300€ sur mon assurance auto.”
+      </div>
+
+      <div class="review-author">
+        — Marie D.
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+
+      <div class="review-text">
+        “Laurent est un vrai professionnel. Il a trouvé une solution malgré mon dossier compliqué. Je recommande à 100%.”
+      </div>
+
+      <div class="review-author">
+        — Julien P.
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">★★★★★</div>
+
+      <div class="review-text">
+        “Très bon courtier, disponible, efficace et humain. Assurance habitation + auto au meilleur prix.”
+      </div>
+
+      <div class="review-author">
+        — Sophie L.
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <a
+        href="https://www.google.com/search?q=Assur%C3%A9co+Laurent+Pasquier+avis"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="google-reviews-link">
+        ⭐ Consultez tous les avis Google ⭐
+      </a>
+    </div>
+
+  </section>
+
+  <footer>
+
+    <div style="font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:4px;">
+      Laurent PASQUIER • ASSURÉCO
+    </div>
+
+    <div style="margin-bottom:4px;">
+      📍 4 Lieu-dit La Houssaye — 49410 St Laurent du Mottay
+    </div>
+
+    <div style="margin-bottom:4px;font-weight:700;">
+      📞
+      <a href="tel:0241782542">
+        02 41 78 25 42
+      </a>
+      •
+      <a href="tel:0610601566">
+        06 10 60 15 66
+      </a>
+    </div>
+
+    <div style="margin-bottom:4px;">
+      ✉️
+      <a
+        href="mailto:assureco49@wanadoo.fr"
+        style="text-decoration:none;">
+        assureco49@wanadoo.fr
+      </a>
+    </div>
+
+    <div style="margin-bottom:6px;font-size:.72rem;color:#94a3b8;">
+      N° ORIAS : 07 023 240 • N° RCS : 478 136 849 00013
+    </div>
+
+    <div>
+      <a href="#">Mentions légales</a>
+      •
+      <a href="#">Politique de confidentialité</a>
+      •
+      <a href="#">Réclamations &amp; Médiation</a>
+    </div>
+
+  </footer>
+
+</div>
+
+</body>
+</html>
