@@ -220,7 +220,8 @@ function renderField(field) {
   wrapper.className = 'field';
   const label = document.createElement('label');
   label.htmlFor = field.id;
-  label.innerHTML = `${field.label}${field.required ? ' <span aria-hidden="true">*</span>' : ''}`;
+  const isRequired = field.type === 'email';
+  label.innerHTML = `${field.label}${isRequired ? ' <span aria-hidden="true">*</span>' : ''}`;
   wrapper.append(label);
 
   let control;
@@ -243,7 +244,7 @@ function renderField(field) {
   }
   control.id = field.id;
   control.name = field.name;
-  control.required = field.required;
+  control.required = isRequired;
   control.autocomplete = field.type === 'email' ? 'email' : field.type === 'tel' ? 'tel' : 'off';
   wrapper.append(control);
   const error = document.createElement('span');
