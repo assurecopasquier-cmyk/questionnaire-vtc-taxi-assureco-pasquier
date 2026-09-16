@@ -2,6 +2,9 @@ const isTasteVariant = new URLSearchParams(window.location.search).get('variant'
 document.documentElement.classList.toggle('taste-variant', isTasteVariant);
 
 if (isTasteVariant) {
+  document.querySelector('#a-propos')?.setAttribute('aria-labelledby', 'intro-title-taste');
+  document.querySelector('#contact')?.setAttribute('aria-labelledby', 'callback-title');
+  document.querySelectorAll('a[href="#politique-confidentialite"]').forEach((link) => { link.href = 'politique-confidentialite.html'; });
   const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   while (walker.nextNode()) {
     const node = walker.currentNode;
@@ -248,6 +251,119 @@ function renderField(field) {
   return wrapper;
 }
 
+function enhanceTasteForm(form) {
+  if (!isTasteVariant || form.dataset.tasteWizard === 'true') return;
+
+  const fieldsets = [...form.querySelectorAll(':scope > .form-fieldset')];
+  if (!fieldsets.length) return;
+
+  const groups = [[], [], []];
+  fieldsets.forEach((fieldset) => {
+    const legend = fieldset.querySelector('legend')?.textContent.toLowerCase() || '';
+    const isCoordinates = /coord|demandeur|entreprise/.test(legend)
+      || Boolean(fieldset.querySelector('input[type="email"], input[type="tel"]'));
+    const isProperty = /bien|logement|véhicule|moto|auto|camping|flotte|activité|projet|permis/.test(legend);
+    if (isCoordinates) groups[2].push(fieldset);
+    else if (isProperty && groups[0].length === 0) groups[0].push(fieldset);
+    else groups[1].push(fieldset);
+  });
+
+  if (!groups[0].length && groups[1].length) groups[0].push(groups[1].shift());
+  if (!groups[1].length && groups[0].length > 1) groups[1].push(groups[0].pop());
+  if (!groups[2].length) groups[2].push(groups[1].pop() || groups[0].pop());
+
+  const wizard = document.createElement('div');
+  wizard.className = 'taste-form-wizard';
+  form.insertBefore(wizard, fieldsets[0]);
+  const progress = document.createElement('ol');
+  progress.className = 'taste-form-progress';
+  progress.setAttribute('aria-label', 'Progression du questionnaire');
+  const steps = ['Le bien', 'Vos besoins', 'Coordonnées'];
+  const panels = steps.map((label, index) => {
+    const item = document.createElement('li');
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'taste-progress-step';
+    button.dataset.step = String(index);
+    button.innerHTML = `<span>${index + 1}</span>${label}`;
+    item.append(button);
+    progress.append(item);
+
+    const panel = document.createElement('section');
+    panel.className = 'taste-form-step';
+    panel.dataset.step = String(index);
+    panel.setAttribute('aria-label', `Étape ${index + 1} : ${label}`);
+    (groups[index] || []).forEach((fieldset) => panel.append(fieldset));
+    if (!panel.children.length) {
+      const note = document.createElement('p');
+      note.className = 'taste-step-note';
+      note.textContent = 'Poursuivez à l’étape suivante.';
+      panel.append(note);
+    }
+    wizard.append(panel);
+    return panel;
+  });
+  wizard.prepend(progress);
+
+  const navigation = document.createElement('div');
+  navigation.className = 'taste-form-navigation';
+  const previous = document.createElement('button');
+  previous.type = 'button';
+  previous.className = 'button button-quiet taste-form-previous';
+  previous.textContent = 'Étape précédente';
+  const next = document.createElement('button');
+  next.type = 'button';
+  next.className = 'button button-primary taste-form-next';
+  next.textContent = 'Continuer';
+  navigation.append(previous, next);
+  wizard.append(navigation);
+
+  form.dataset.tasteWizard = 'true';
+
+  let currentStep = 0;
+  const updateStep = (step) => {
+    currentStep = Math.max(0, Math.min(2, step));
+    panels.forEach((panel, index) => {
+      panel.hidden = index !== currentStep;
+      panel.setAttribute('aria-hidden', String(index !== currentStep));
+    });
+    progress.querySelectorAll('.taste-progress-step').forEach((stepButton, index) => {
+      stepButton.classList.toggle('is-active', index === currentStep);
+      stepButton.classList.toggle('is-complete', index < currentStep);
+      stepButton.setAttribute('aria-current', index === currentStep ? 'step' : 'false');
+      stepButton.disabled = index > currentStep;
+    });
+    previous.hidden = currentStep === 0;
+    next.hidden = currentStep === 2;
+    const privacy = form.querySelector('.form-privacy');
+    if (privacy) privacy.hidden = currentStep !== 2;
+    const status = form.querySelector('.form-status');
+    if (status) status.hidden = currentStep !== 2;
+    const submit = form.querySelector('.button-submit');
+    if (submit) submit.hidden = currentStep !== 2;
+  };
+  const validateStep = () => {
+    const invalid = [...panels[currentStep].querySelectorAll('input, select, textarea')]
+      .find((control) => !control.checkValidity());
+    if (!invalid) return true;
+    invalid.reportValidity();
+    return false;
+  };
+
+  previous.addEventListener('click', () => updateStep(currentStep - 1));
+  next.addEventListener('click', () => {
+    if (validateStep()) updateStep(currentStep + 1);
+  });
+  progress.querySelectorAll('.taste-progress-step').forEach((stepButton) => {
+    stepButton.addEventListener('click', () => {
+      const requestedStep = Number(stepButton.dataset.step);
+      if (requestedStep < currentStep || (requestedStep === currentStep + 1 && validateStep())) updateStep(requestedStep);
+    });
+  });
+  form.addEventListener('reset', () => requestAnimationFrame(() => updateStep(0)));
+  updateStep(0);
+}
+
 function renderForm(formId) {
   const definition = formDefinitions[formId];
   questionnaireTitle.textContent = definition.title;
@@ -291,6 +407,7 @@ function renderForm(formId) {
   form.append(submit);
   panel.append(form);
   formContent.append(panel);
+  enhanceTasteForm(form);
   form.addEventListener('submit', (event) => handleSubmit(event, form, status, submit));
 }
 

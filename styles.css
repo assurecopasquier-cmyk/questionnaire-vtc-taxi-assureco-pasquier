@@ -183,6 +183,7 @@ h1 em, h2 em { color: var(--blue); font-style: normal; }
 .button-submit[disabled] { cursor: progress; opacity: 0.62; transform: none; }
 
 .contact-section { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 54px; align-items: start; padding: 72px 0; border-top: 1px solid var(--line); }
+.contact-base-content { display: contents; }
 .contact-copy p:not(.eyebrow) { max-width: 450px; color: var(--muted); }
 .contact-details { display: grid; gap: 12px; margin-top: 28px; }
 .contact-details a { display: flex; gap: 12px; align-items: center; color: var(--blue); text-decoration: none; }

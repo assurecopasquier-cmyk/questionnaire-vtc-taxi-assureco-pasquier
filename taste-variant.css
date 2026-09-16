@@ -4,6 +4,30 @@
   display: none;
 }
 
+html.taste-variant .brand-base-name,
+html.taste-variant .brand-local-label,
+html.taste-variant .intro-base-content,
+html.taste-variant .contact-base-content,
+html.taste-variant .portrait-contact-base,
+html.taste-variant .reviews-link-base,
+html.taste-variant .base-legal-nav,
+html.taste-variant .legal-section {
+  display: none;
+}
+
+html.taste-variant .brand-taste-name,
+html.taste-variant .brand-taste-label,
+html.taste-variant .intro-profile,
+html.taste-variant .portrait-contact-taste,
+html.taste-variant .callback-module,
+html.taste-variant .google-review-badge {
+  display: block;
+}
+
+html.taste-variant .taste-legal-nav {
+  display: flex;
+}
+
 html.taste-variant {
   --paper: #f1f5f9;
   --white: #ffffff;
@@ -144,7 +168,11 @@ html.taste-variant .hero-brand-message strong {
 
 html.taste-variant .hero-brand-message p:last-child {
   color: var(--blue-dark);
-  font-weight: 700;
+  max-width: 520px;
+  font-size: clamp(30px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
 }
 
 html.taste-variant .hero-lead {
@@ -243,19 +271,46 @@ html.taste-variant .proof-separator {
   background: rgba(255, 255, 255, 0.24);
 }
 
-html.taste-variant .intro-section h2 {
-  display: none;
+html.taste-variant .intro-section {
+  padding-bottom: 82px;
+  background: var(--white);
 }
 
-html.taste-variant .intro-section {
-  padding-top: 76px;
+html.taste-variant .intro-profile {
+  max-width: 820px;
+}
+
+html.taste-variant .profile-symbol {
+  margin-bottom: 12px;
+  color: var(--blue);
+  font-size: 27px;
+  line-height: 1;
+}
+
+html.taste-variant .intro-profile h2 {
+  max-width: 740px;
+  margin-bottom: 20px;
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 0.98;
+}
+
+html.taste-variant .intro-profile p:not(.eyebrow):not(.profile-symbol) {
+  max-width: 720px;
+  margin-bottom: 13px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+html.taste-variant .intro-profile p strong {
+  color: var(--ink);
 }
 
 html.taste-variant .service-card {
   min-height: 154px;
   border-radius: 5px;
   border-color: var(--line);
-  background: rgba(255, 255, 255, 0.76);
+  background: var(--white);
+  color: var(--ink);
   box-shadow: none;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
@@ -267,22 +322,19 @@ html.taste-variant .service-card:focus-visible {
   transform: translateY(-3px);
 }
 
-html.taste-variant .service-card:first-child,
-html.taste-variant .service-card:nth-child(4) {
-  grid-column: span 2;
+html.taste-variant .service-card[aria-expanded="true"] {
+  border-color: var(--ink);
   background: var(--ink);
   color: var(--white);
 }
 
-html.taste-variant .service-card:first-child small,
-html.taste-variant .service-card:nth-child(4) small {
-  color: rgba(255, 255, 255, 0.74);
+html.taste-variant .service-card[aria-expanded="true"] small {
+  color: rgba(255, 255, 255, 0.76);
 }
 
-html.taste-variant .service-card:first-child .service-icon,
-html.taste-variant .service-card:nth-child(4) .service-icon,
-html.taste-variant .service-card:first-child .service-arrow,
-html.taste-variant .service-card:nth-child(4) .service-arrow {
+html.taste-variant .service-card[aria-expanded="true"] .service-icon,
+html.taste-variant .service-card[aria-expanded="true"] .service-arrow {
+  background: rgba(255, 255, 255, 0.12);
   color: #a9caff;
 }
 
@@ -301,12 +353,244 @@ html.taste-variant .form-fieldset {
   border-radius: 5px;
 }
 
+html.taste-variant .taste-form-wizard {
+  margin-bottom: 22px;
+}
+
+html.taste-variant .taste-form-progress {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  padding: 0;
+  margin: 0 0 22px;
+  list-style: none;
+}
+
+html.taste-variant .taste-progress-step {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--white);
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+}
+
+html.taste-variant .taste-progress-step span {
+  display: grid;
+  place-items: center;
+  width: 23px;
+  height: 23px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--blue-pale);
+  color: var(--blue-dark);
+  font-size: 11px;
+}
+
+html.taste-variant .taste-progress-step.is-active {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--white);
+}
+
+html.taste-variant .taste-progress-step.is-active span {
+  background: var(--green);
+  color: var(--white);
+}
+
+html.taste-variant .taste-progress-step.is-complete {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+html.taste-variant .taste-progress-step:disabled {
+  cursor: default;
+  opacity: 0.58;
+}
+
+html.taste-variant .taste-form-step[hidden] {
+  display: none;
+}
+
+html.taste-variant .taste-form-step .form-fieldset:last-child {
+  margin-bottom: 0;
+}
+
+html.taste-variant .taste-step-note {
+  padding: 18px;
+  margin: 0;
+  border: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+html.taste-variant .taste-form-navigation {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+html.taste-variant .taste-form-navigation .button {
+  min-width: 150px;
+}
+
+html.taste-variant .services-section,
+html.taste-variant .contact-section,
+html.taste-variant .reviews-section {
+  padding-right: clamp(18px, 3vw, 40px);
+  padding-left: clamp(18px, 3vw, 40px);
+  background: #f8f9fa;
+  border-top: 1px solid var(--line);
+}
+
+html.taste-variant .services-section {
+  padding-top: 72px;
+  padding-bottom: 88px;
+}
+
+html.taste-variant .contact-section {
+  padding-top: 88px;
+  padding-bottom: 88px;
+}
+
+html.taste-variant .reviews-section {
+  padding-top: 78px;
+  padding-bottom: 88px;
+}
+
 html.taste-variant .contact-form {
   background: var(--ink);
 }
 
+html.taste-variant .callback-module {
+  display: grid;
+  grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+  gap: 44px;
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+html.taste-variant .callback-copy h2 {
+  max-width: 540px;
+  margin-bottom: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(38px, 4.5vw, 60px);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+html.taste-variant .callback-copy > p:not(.eyebrow) {
+  max-width: 430px;
+  color: var(--muted);
+}
+
+html.taste-variant .callback-phone {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+  color: var(--green);
+  text-decoration: none;
+}
+
+html.taste-variant .callback-phone > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
+}
+
+html.taste-variant .callback-phone strong,
+html.taste-variant .callback-phone small {
+  display: block;
+}
+
+html.taste-variant .callback-phone strong {
+  color: var(--ink);
+  font-size: 18px;
+}
+
+html.taste-variant .callback-phone small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+html.taste-variant .callback-form {
+  display: grid;
+  gap: 15px;
+  padding: 26px;
+  border-radius: 5px;
+  background: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+html.taste-variant .callback-form .field label {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+html.taste-variant .callback-form .field input,
+html.taste-variant .callback-form .field select,
+html.taste-variant .callback-form .field textarea {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
+html.taste-variant .callback-form .form-privacy {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+html.taste-variant .callback-form .button-submit {
+  margin-top: 2px;
+}
+
+html.taste-variant .google-review-badge {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 13px;
+  border: 1px solid #e4d29a;
+  border-radius: 5px;
+  background: #fffaf0;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+html.taste-variant .google-review-badge .badge-stars {
+  color: #d79b16;
+  letter-spacing: 0.08em;
+}
+
+html.taste-variant .google-review-badge strong,
+html.taste-variant .google-review-badge small {
+  display: block;
+}
+
+html.taste-variant .google-review-badge strong {
+  font-size: 13px;
+}
+
+html.taste-variant .google-review-badge small {
+  color: var(--muted);
+  font-size: 10px;
+}
+
 html.taste-variant .review-grid figure {
   border-radius: 5px;
+  background: #fffdf7;
   box-shadow: none;
 }
 
@@ -316,6 +600,70 @@ html.taste-variant .site-footer {
 
 html.taste-variant .cookie-banner {
   border-radius: 5px;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+html.taste-variant .cookie-banner h2 {
+  margin-bottom: 3px;
+  font-size: clamp(18px, 2vw, 24px);
+}
+
+html.taste-variant .cookie-banner p {
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+html.taste-variant .cookie-actions .button,
+html.taste-variant .cookie-settings .button {
+  min-height: 36px;
+  padding: 8px 12px;
+}
+
+html.taste-variant .legal-document {
+  width: min(900px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 64px 0 96px;
+}
+
+html.taste-variant .legal-document > .text-link {
+  display: inline-block;
+  margin-bottom: 22px;
+}
+
+html.taste-variant .legal-document article {
+  padding: clamp(24px, 5vw, 56px);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+html.taste-variant .legal-document h1 {
+  max-width: 700px;
+  margin-bottom: 28px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(40px, 6vw, 68px);
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+}
+
+html.taste-variant .legal-document .legal-content {
+  grid-template-columns: 1fr 1fr;
+}
+
+html.taste-variant .legal-document .legal-copy {
+  max-width: 680px;
+}
+
+html.taste-variant .legal-document .legal-copy p {
+  margin-bottom: 18px;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+html.taste-variant .legal-document a {
+  color: var(--blue-dark);
 }
 
 @media (max-width: 950px) {
@@ -338,6 +686,12 @@ html.taste-variant .cookie-banner {
     padding-top: 42px;
   }
 
+  html.taste-variant .cookie-manage {
+    top: 80px;
+    right: 12px;
+    bottom: auto;
+  }
+
   html.taste-variant .hero h1 {
     font-size: clamp(48px, 15vw, 70px);
   }
@@ -347,9 +701,29 @@ html.taste-variant .cookie-banner {
     min-height: 390px;
   }
 
-  html.taste-variant .service-card:first-child,
-  html.taste-variant .service-card:nth-child(4) {
-    grid-column: span 1;
+  html.taste-variant .hero-brand-message p:last-child {
+    font-size: clamp(28px, 9vw, 42px);
+  }
+
+  html.taste-variant .callback-module {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  html.taste-variant .services-section,
+  html.taste-variant .contact-section,
+  html.taste-variant .reviews-section {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  html.taste-variant .legal-document {
+    width: min(100% - 32px, 760px);
+    padding-top: 42px;
+  }
+
+  html.taste-variant .legal-document .legal-content {
+    grid-template-columns: 1fr;
   }
 }
 
