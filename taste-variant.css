@@ -272,7 +272,8 @@ html.taste-variant .proof-separator {
 }
 
 html.taste-variant .intro-section {
-  padding-bottom: 82px;
+  max-width: none;
+  padding: 64px clamp(18px, 4vw, 54px) 72px;
   background: var(--white);
 }
 
