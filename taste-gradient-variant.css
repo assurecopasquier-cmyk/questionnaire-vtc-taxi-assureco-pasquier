@@ -1,0 +1,53 @@
+/* Client preview: restrained gradient direction layered on top of the validated Taste variant. */
+
+.portrait-contact-gradient {
+  display: none;
+}
+
+html.taste-gradient-variant .hero {
+  background:
+    radial-gradient(circle at 12% 8%, rgba(20, 87, 166, 0.12), transparent 28%),
+    linear-gradient(135deg, #eaf3ff 0%, #f8fbff 54%, #e8f6f0 100%);
+  border: 1px solid rgba(20, 87, 166, 0.12);
+  border-radius: 8px;
+  padding-right: clamp(18px, 3vw, 42px);
+  padding-left: clamp(18px, 3vw, 42px);
+}
+
+html.taste-gradient-variant .portrait-contact-taste {
+  display: none;
+}
+
+html.taste-gradient-variant .portrait-contact-gradient {
+  display: block;
+}
+
+html.taste-gradient-variant .portrait-contact-gradient strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--green);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+html.taste-gradient-variant .services-section {
+  background:
+    radial-gradient(circle at 92% 12%, rgba(22, 113, 91, 0.13), transparent 25%),
+    linear-gradient(135deg, #edf5ff 0%, #f8fafc 50%, #eaf7f1 100%);
+}
+
+html.taste-gradient-variant .service-card {
+  background: linear-gradient(150deg, #ffffff 0%, #f5f9fd 100%);
+}
+
+html.taste-gradient-variant .service-card:hover,
+html.taste-gradient-variant .service-card:focus-visible {
+  background: linear-gradient(150deg, #ffffff 0%, #edf8f3 100%);
+}
+
+@media (max-width: 650px) {
+  html.taste-gradient-variant .hero {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+}

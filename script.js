@@ -1,5 +1,8 @@
-const isTasteVariant = new URLSearchParams(window.location.search).get('variant') === 'taste';
+const variantName = new URLSearchParams(window.location.search).get('variant');
+const isTasteVariant = variantName === 'taste' || variantName === 'taste-gradient';
+const isTasteGradientVariant = variantName === 'taste-gradient';
 document.documentElement.classList.toggle('taste-variant', isTasteVariant);
+document.documentElement.classList.toggle('taste-gradient-variant', isTasteGradientVariant);
 
 if (isTasteVariant) {
   document.querySelector('#a-propos')?.setAttribute('aria-labelledby', 'intro-title-taste');
