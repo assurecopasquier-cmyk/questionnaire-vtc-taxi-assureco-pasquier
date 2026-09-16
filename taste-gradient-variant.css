@@ -14,6 +14,14 @@ html.taste-gradient-variant .hero {
   padding-left: clamp(18px, 3vw, 42px);
 }
 
+html.taste-gradient-variant .hero-visual {
+  transform: translateY(18px);
+}
+
+html.taste-gradient-variant .hero-visual .hero-portrait {
+  transform: none;
+}
+
 html.taste-gradient-variant .portrait-contact-taste {
   display: none;
 }
@@ -28,6 +36,82 @@ html.taste-gradient-variant .portrait-contact-gradient strong {
   color: var(--green);
   font-size: 9px;
   letter-spacing: 0.1em;
+}
+
+html.taste-gradient-variant .photo-review-badge {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 11px;
+  margin-top: 8px;
+  padding: 7px 15px 7px 10px;
+  border: 1px solid rgba(11, 29, 51, 0.16);
+  border-left: 6px solid #fbbc05;
+  border-radius: 7px;
+  background: linear-gradient(110deg, #1769d1 0%, #287bea 100%);
+  box-shadow: 0 8px 18px rgba(11, 29, 51, 0.14);
+  color: var(--white);
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+html.taste-gradient-variant .photo-review-badge:hover,
+html.taste-gradient-variant .photo-review-badge:focus-visible {
+  filter: saturate(1.08);
+  box-shadow: 0 11px 22px rgba(11, 29, 51, 0.2);
+  transform: translateY(-2px);
+}
+
+html.taste-gradient-variant .google-logo {
+  display: grid;
+  flex: 0 0 28px;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+html.taste-gradient-variant .google-logo > span {
+  color: #4285f4;
+  -webkit-background-clip: text;
+  background: linear-gradient(135deg, #4285f4 0 28%, #34a853 28% 48%, #fbbc05 48% 65%, #ea4335 65% 82%, #4285f4 82%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.taste-gradient-variant .photo-review-copy {
+  display: grid;
+  flex: 1;
+  gap: 2px;
+}
+
+html.taste-gradient-variant .photo-review-copy strong {
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+html.taste-gradient-variant .photo-review-copy > span {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+html.taste-gradient-variant .photo-review-stars {
+  color: #ffd44d;
+  letter-spacing: 0.08em;
+}
+
+html.taste-gradient-variant .photo-review-copy b {
+  font-size: 12px;
+  white-space: nowrap;
 }
 
 html.taste-gradient-variant .services-section {
@@ -49,5 +133,13 @@ html.taste-gradient-variant .service-card:focus-visible {
   html.taste-gradient-variant .hero {
     padding-right: 16px;
     padding-left: 16px;
+  }
+
+  html.taste-gradient-variant .hero-visual {
+    transform: none;
+  }
+
+  html.taste-gradient-variant .photo-review-badge {
+    margin-top: 7px;
   }
 }
