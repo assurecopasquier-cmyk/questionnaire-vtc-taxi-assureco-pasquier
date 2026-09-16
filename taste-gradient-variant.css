@@ -45,7 +45,8 @@ html.taste-gradient-variant .photo-review-badge {
   align-items: center;
   gap: 11px;
   margin-top: 8px;
-  padding: 7px 15px 7px 10px;
+  min-height: 56px;
+  padding: 9px 15px 9px 10px;
   border: 1px solid rgba(11, 29, 51, 0.16);
   border-left: 6px solid #fbbc05;
   border-radius: 7px;
@@ -92,21 +93,24 @@ html.taste-gradient-variant .photo-review-copy {
 }
 
 html.taste-gradient-variant .photo-review-copy strong {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.1;
 }
 
 html.taste-gradient-variant .photo-review-copy > span {
   display: flex;
   align-items: center;
-  gap: 18px;
-  font-size: 11px;
+  gap: 14px;
+  font-size: 12px;
   font-weight: 700;
 }
 
 html.taste-gradient-variant .photo-review-stars {
-  color: #ffd44d;
+  color: #ffca28;
+  font-size: 15px;
+  font-weight: 800;
   letter-spacing: 0.08em;
+  line-height: 1;
 }
 
 html.taste-gradient-variant .photo-review-copy b {
