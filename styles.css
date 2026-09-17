@@ -166,6 +166,16 @@ h1 em, h2 em { color: var(--blue); font-style: normal; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--blue); outline: 3px solid rgba(45,91,255,0.12); }
 .field input[aria-invalid="true"], .field select[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #b42318; }
 .field-error { min-height: 16px; color: #b42318; font-size: 11px; }
+.field-help { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+.attachment-field { display: grid; gap: 9px; margin-top: 22px; }
+.attachment-heading { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-soft); font-size: 13px; font-weight: 700; }
+.attachment-dropzone { display: grid; gap: 10px; padding: 17px; border: 1px dashed #9cadd1; border-radius: 9px; background: #f8fafc; }
+.attachment-dropzone.is-dragover, .attachment-dropzone:focus-within { border-color: var(--blue); outline: 3px solid rgba(45,91,255,0.12); }
+.attachment-instructions, .attachment-help, .attachment-limits { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
+.attachment-dropzone input[type="file"] { width: 100%; max-width: 100%; color: var(--ink-soft); font-size: 12px; }
+.attachment-dropzone input[type="file"]::file-selector-button { margin-right: 10px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 6px; background: var(--white); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
+.attachment-file-list { display: grid; gap: 4px; padding-left: 18px; margin: 0; color: var(--ink-soft); font-size: 12px; overflow-wrap: anywhere; }
+.attachment-error:empty, .attachment-file-list:empty { display: none; }
 .form-privacy { margin: 8px 0 18px; color: var(--muted); font-size: 11px; }
 .form-privacy a { color: var(--blue-dark); }
 .form-status { min-height: 0; margin: 0 0 14px; border-radius: 10px; font-size: 13px; }

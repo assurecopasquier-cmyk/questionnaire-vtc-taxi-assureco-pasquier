@@ -18,6 +18,9 @@ if (isTasteVariant) {
 }
 
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mrpgjreg';
+const MAX_ATTACHMENT_FILES = 10;
+const MAX_ATTACHMENT_FILE_BYTES = 25 * 1024 * 1024;
+const MAX_ATTACHMENT_TOTAL_BYTES = 90 * 1024 * 1024;
 
 const text = (id, label, name = label, required = false, placeholder = '') => ({ id, label, name, type: 'text', required, placeholder });
 const tel = (id, label, required = false) => ({ id, label, name: label, type: 'tel', required });
@@ -255,6 +258,122 @@ function renderField(field) {
   return wrapper;
 }
 
+function renderFinalRequestFields(formId) {
+  const fieldset = document.createElement('fieldset');
+  fieldset.className = 'form-fieldset form-final-fieldset';
+  const legend = document.createElement('legend');
+  legend.textContent = 'Pour compléter votre demande';
+  fieldset.append(legend);
+
+  const detailsField = document.createElement('div');
+  detailsField.className = 'field request-details-field';
+  const detailsId = `${formId}-details-message`;
+  const detailsLabel = document.createElement('label');
+  detailsLabel.htmlFor = detailsId;
+  detailsLabel.textContent = 'Besoin de nous en dire plus ?';
+  const detailsHelp = document.createElement('p');
+  detailsHelp.className = 'field-help';
+  detailsHelp.id = `${detailsId}-help`;
+  detailsHelp.textContent = 'Cet espace est le vôtre pour nous faire part d’une précision, d’un souhait ou d’une recommandation concernant vos besoins (garanties, franchises, situation particulière).';
+  const detailsInput = document.createElement('textarea');
+  detailsInput.id = detailsId;
+  detailsInput.name = 'Besoin de nous en dire plus';
+  detailsInput.rows = 5;
+  detailsInput.setAttribute('aria-describedby', detailsHelp.id);
+  detailsField.append(detailsLabel, detailsHelp, detailsInput);
+  fieldset.append(detailsField);
+
+  const attachmentField = document.createElement('div');
+  attachmentField.className = 'attachment-field';
+  const fileId = `${formId}-documents`;
+  const fileLabel = document.createElement('label');
+  fileLabel.className = 'attachment-heading';
+  fileLabel.htmlFor = fileId;
+  const paperclip = document.createElement('span');
+  paperclip.setAttribute('aria-hidden', 'true');
+  paperclip.textContent = '📎';
+  fileLabel.append(paperclip, document.createTextNode(' Joindre des documents (Facultatif)'));
+
+  const dropzone = document.createElement('div');
+  dropzone.className = 'attachment-dropzone';
+  const instruction = document.createElement('p');
+  instruction.className = 'attachment-instructions';
+  instruction.id = `${fileId}-instructions`;
+  instruction.textContent = 'Déposez vos fichiers (PDF ou photos) pour accélérer votre dossier.';
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.id = fileId;
+  fileInput.name = 'Documents joints';
+  fileInput.accept = '.pdf,application/pdf,image/jpeg,image/png,image/webp,image/heic,image/heif,image/avif,image/gif,image/tiff,image/bmp';
+  fileInput.multiple = true;
+
+  const usefulDocuments = document.createElement('p');
+  usefulDocuments.className = 'attachment-help';
+  usefulDocuments.textContent = 'Documents utiles : Permis, carte grise, relevé d’information, contrat actuel...';
+  const limits = document.createElement('p');
+  limits.className = 'attachment-limits';
+  limits.id = `${fileId}-limits`;
+  limits.textContent = '10 fichiers maximum · 25 Mo par fichier · 90 Mo au total.';
+  const fileError = document.createElement('span');
+  fileError.className = 'field-error attachment-error';
+  fileError.id = `${fileId}-error`;
+  fileError.setAttribute('aria-live', 'polite');
+  const fileList = document.createElement('ul');
+  fileList.className = 'attachment-file-list';
+  fileList.id = `${fileId}-list`;
+  fileList.setAttribute('aria-live', 'polite');
+  fileInput.setAttribute('aria-describedby', `${instruction.id} ${limits.id} ${fileError.id} ${fileList.id}`);
+  dropzone.append(instruction, fileInput);
+  attachmentField.append(fileLabel, dropzone, usefulDocuments, limits, fileError, fileList);
+  fieldset.append(attachmentField);
+
+  const validateFiles = () => {
+    const files = [...fileInput.files];
+    const totalBytes = files.reduce((total, file) => total + file.size, 0);
+    const unsupported = files.some((file) => {
+      const supportedMime = file.type === 'application/pdf'
+        || ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'image/avif', 'image/gif', 'image/tiff', 'image/bmp'].includes(file.type);
+      const supportedExtension = /\.(pdf|jpe?g|png|gif|webp|heic|heif|avif|tiff?|bmp)$/i.test(file.name);
+      return !supportedMime && !supportedExtension;
+    });
+    let message = '';
+    if (files.length > MAX_ATTACHMENT_FILES) message = `Vous pouvez joindre au maximum ${MAX_ATTACHMENT_FILES} fichiers.`;
+    else if (files.some((file) => file.size > MAX_ATTACHMENT_FILE_BYTES)) message = 'Chaque fichier doit faire 25 Mo maximum.';
+    else if (totalBytes > MAX_ATTACHMENT_TOTAL_BYTES) message = 'Le poids total des fichiers ne peut pas dépasser 90 Mo.';
+    else if (unsupported) message = 'Seuls les fichiers PDF et les photos sont acceptés.';
+
+    fileInput.setCustomValidity(message);
+    if (message) fileInput.setAttribute('aria-invalid', 'true');
+    else fileInput.removeAttribute('aria-invalid');
+    fileError.textContent = message;
+    fileList.replaceChildren(...files.map((file) => {
+      const item = document.createElement('li');
+      item.textContent = file.name;
+      return item;
+    }));
+  };
+
+  fileInput.addEventListener('change', validateFiles);
+  dropzone.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    dropzone.classList.add('is-dragover');
+  });
+  dropzone.addEventListener('dragleave', (event) => {
+    if (!dropzone.contains(event.relatedTarget)) dropzone.classList.remove('is-dragover');
+  });
+  dropzone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropzone.classList.remove('is-dragover');
+    const droppedFiles = event.dataTransfer?.files;
+    if (!droppedFiles?.length) return;
+    const transfer = new DataTransfer();
+    [...droppedFiles].forEach((file) => transfer.items.add(file));
+    fileInput.files = transfer.files;
+    validateFiles();
+  });
+  return fieldset;
+}
+
 function enhanceTasteForm(form) {
   if (!isTasteVariant || form.dataset.tasteWizard === 'true') return;
 
@@ -263,6 +382,10 @@ function enhanceTasteForm(form) {
 
   const groups = [[], [], []];
   fieldsets.forEach((fieldset) => {
+    if (fieldset.classList.contains('form-final-fieldset')) {
+      groups[2].push(fieldset);
+      return;
+    }
     const legend = fieldset.querySelector('legend')?.textContent.toLowerCase() || '';
     const isCoordinates = /coord|demandeur|entreprise/.test(legend)
       || Boolean(fieldset.querySelector('input[type="email"], input[type="tel"]'));
@@ -380,6 +503,7 @@ function renderForm(formId) {
   form.id = `${formId}-form`;
   form.action = FORMSPREE_ENDPOINT;
   form.method = 'POST';
+  form.enctype = 'multipart/form-data';
   form.noValidate = true;
   form.innerHTML = `<input type="hidden" name="Type de demande" value="${definition.title}" /><input type="hidden" name="_subject" value="ASSURÉCO — ${definition.title}" /><p>Les champs marqués d’un astérisque sont nécessaires à l’étude de votre demande.</p>`;
 
@@ -395,6 +519,17 @@ function renderForm(formId) {
     fieldset.append(grid);
     form.append(fieldset);
   });
+
+  form.append(renderFinalRequestFields(formId));
+  form.addEventListener('reset', () => requestAnimationFrame(() => {
+    form.querySelectorAll('input[type="file"]').forEach((input) => {
+      input.setCustomValidity('');
+      input.removeAttribute('aria-invalid');
+      input.closest('.attachment-field')?.querySelector('.attachment-error')?.replaceChildren();
+      input.closest('.attachment-field')?.querySelector('.attachment-file-list')?.replaceChildren();
+      input.closest('.attachment-field')?.querySelector('.attachment-dropzone')?.classList.remove('is-dragover');
+    });
+  }));
 
   const privacy = document.createElement('p');
   privacy.className = 'form-privacy';
@@ -427,7 +562,13 @@ function validateForm(form) {
   form.querySelectorAll(':invalid').forEach((element) => {
     element.setAttribute('aria-invalid', 'true');
     const error = document.querySelector(`#${element.id}-error`);
-    if (error) error.textContent = element.type === 'email' ? 'Saisissez une adresse e-mail valide.' : 'Ce champ est requis.';
+    if (error) {
+      error.textContent = element.type === 'email'
+        ? 'Saisissez une adresse e-mail valide.'
+        : element.type === 'file' && element.validationMessage
+          ? element.validationMessage
+          : 'Ce champ est requis.';
+    }
   });
   firstInvalid?.focus();
   return false;
@@ -443,13 +584,19 @@ async function handleSubmit(event, form, status, submit) {
   status.textContent = 'Transmission de votre demande…';
   try {
     const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-    if (!response.ok) throw new Error('submission-failed');
+    if (!response.ok) {
+      const result = await response.json().catch(() => null);
+      if (result?.errors?.some((item) => item.code === 'NO_FILE_UPLOADS')) throw new Error('file-uploads-disabled');
+      throw new Error('submission-failed');
+    }
     form.reset();
     status.className = 'form-status success';
     status.textContent = 'Votre demande a bien été transmise. Le cabinet reviendra vers vous dans les meilleurs délais.';
   } catch (error) {
     status.className = 'form-status error';
-    status.textContent = 'L’envoi n’a pas pu aboutir. Vérifiez votre connexion ou contactez directement le cabinet par téléphone ou e-mail.';
+    status.textContent = error.message === 'file-uploads-disabled'
+      ? 'Le compte de réception ne permet pas encore l’envoi de fichiers. Votre demande est conservée : réessayez sans les documents ou contactez le cabinet.'
+      : 'L’envoi n’a pas pu aboutir. Vérifiez votre connexion ou contactez directement le cabinet par téléphone ou e-mail.';
   } finally {
     submit.disabled = false;
   }
