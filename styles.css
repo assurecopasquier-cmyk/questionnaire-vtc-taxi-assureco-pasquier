@@ -70,7 +70,7 @@ button { color: inherit; }
 .brand, .footer-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand-logo {
   display: block;
-  width: 185px;
+  width: 240px;
   max-width: 100%;
   height: auto;
 }
