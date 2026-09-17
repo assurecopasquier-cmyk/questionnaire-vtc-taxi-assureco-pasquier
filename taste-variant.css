@@ -59,8 +59,9 @@ html.taste-variant .site-header {
 }
 
 html.taste-variant .brand-mark {
-  border-radius: 5px;
-  background: var(--blue);
+  border-color: var(--line);
+  border-radius: 8px;
+  background: #fff;
 }
 
 html.taste-variant .main-nav a {
