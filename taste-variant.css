@@ -4,8 +4,6 @@
   display: none;
 }
 
-html.taste-variant .brand-base-name,
-html.taste-variant .brand-local-label,
 html.taste-variant .intro-base-content,
 html.taste-variant .contact-base-content,
 html.taste-variant .portrait-contact-base,
@@ -15,8 +13,6 @@ html.taste-variant .legal-section {
   display: none;
 }
 
-html.taste-variant .brand-taste-name,
-html.taste-variant .brand-taste-label,
 html.taste-variant .intro-profile,
 html.taste-variant .portrait-contact-taste,
 html.taste-variant .callback-module,
@@ -56,12 +52,6 @@ html.taste-variant .site-header {
   border-bottom-color: var(--line);
   background: rgba(241, 245, 249, 0.92);
   backdrop-filter: blur(12px);
-}
-
-html.taste-variant .brand-mark {
-  border-color: var(--line);
-  border-radius: 8px;
-  background: #fff;
 }
 
 html.taste-variant .main-nav a {
