@@ -175,15 +175,26 @@
               <a href="mailto:assureco49@wanadoo.fr"><span aria-hidden="true">✉</span><span><strong>assureco49@wanadoo.fr</strong><small>Envoyer un e-mail</small></span></a>
             </div>
           </div>
-          <form class="contact-form" id="contact-form" action="https://formspree.io/f/mrpgjreg" method="POST" novalidate>
+          <form class="contact-form" id="contact-form" name="assureco-contact" action="/" method="POST" enctype="multipart/form-data" data-netlify="true" novalidate>
+            <input type="hidden" name="form-name" value="assureco-contact" />
             <input type="hidden" name="Type de demande" value="Contact général" />
-            <input type="hidden" name="_subject" value="ASSURÉCO — Nouvelle demande de contact" />
+            <input type="hidden" name="subject" value="ASSURÉCO - Nouvelle demande de contact" />
             <div class="form-grid form-grid-two">
               <div class="field"><label for="contact-nom">Nom et prénom</label><input id="contact-nom" name="Nom et prénom" type="text" autocomplete="name" /></div>
               <div class="field"><label for="contact-tel">Téléphone</label><input id="contact-tel" name="Téléphone" type="tel" autocomplete="tel" /></div>
             </div>
-            <div class="field"><label for="contact-email">Adresse e-mail <span aria-hidden="true">*</span></label><input id="contact-email" name="Adresse e-mail" type="email" autocomplete="email" required /></div>
+            <div class="field"><label for="contact-email">Adresse e-mail <span aria-hidden="true">*</span></label><input id="contact-email" name="email" type="email" autocomplete="email" required /></div>
               <div class="field"><label for="contact-message">Votre message</label><textarea id="contact-message" name="Message" rows="5"></textarea></div>
+            <div class="attachment-field">
+              <label class="attachment-heading" for="contact-documents"><span aria-hidden="true">📎</span> Joindre un document (facultatif)</label>
+              <div class="attachment-dropzone">
+                <p class="attachment-instructions" id="contact-documents-instructions">Déposez un PDF ou une photo pour compléter votre demande.</p>
+                <input id="contact-documents" name="Documents joints" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" aria-describedby="contact-documents-instructions contact-documents-limits contact-documents-error contact-documents-list" />
+              </div>
+              <p class="attachment-limits" id="contact-documents-limits">Un seul fichier · 7 Mo maximum · PDF, JPG, JPEG ou PNG.</p>
+              <span class="field-error attachment-error" id="contact-documents-error" aria-live="polite"></span>
+              <ul class="attachment-file-list" id="contact-documents-list" aria-live="polite"></ul>
+            </div>
             <p class="form-privacy">En envoyant ce formulaire, vous acceptez que les informations saisies soient utilisées pour traiter votre demande. <a href="#politique-confidentialite">Consulter la politique de confidentialité</a>.</p>
             <div class="form-status" aria-live="polite"></div>
             <button class="button button-primary button-submit" type="submit">Envoyer ma demande <span aria-hidden="true">↗</span></button>
@@ -196,14 +207,26 @@
             <p>Vous préférez être accompagné directement ? Indiquez vos coordonnées et le cabinet vous rappelle.</p>
             <a class="callback-phone" href="tel:+33241782542"><span aria-hidden="true">☎</span><span><strong>02 41 78 25 42</strong><small>Devis immédiat par téléphone</small></span></a>
           </div>
-          <form class="callback-form" id="callback-form" action="https://formspree.io/f/mrpgjreg" method="POST">
+          <form class="callback-form" id="callback-form" name="assureco-rappel" action="/" method="POST" enctype="multipart/form-data" data-netlify="true">
+            <input type="hidden" name="form-name" value="assureco-rappel" />
             <input type="hidden" name="Type de demande" value="Demande de rappel" />
-            <input type="hidden" name="_subject" value="ASSURÉCO — Demande de rappel" />
+            <input type="hidden" name="subject" value="ASSURÉCO - Demande de rappel" />
               <div class="field"><label for="callback-nom">Nom et prénom</label><input id="callback-nom" name="Nom et prénom" type="text" autocomplete="name" /></div>
             <div class="field"><label for="callback-tel">Téléphone</label><input id="callback-tel" name="Téléphone" type="tel" autocomplete="tel" /></div>
             <div class="field"><label for="callback-creneau">Créneau souhaité</label><select id="callback-creneau" name="Créneau souhaité"><option value="">Choisissez un créneau</option><option>Matin</option><option>Après-midi</option><option>Fin de journée</option></select></div>
             <div class="field"><label for="callback-message">Précision éventuelle</label><textarea id="callback-message" name="Message" rows="3"></textarea></div>
+            <div class="attachment-field">
+              <label class="attachment-heading" for="callback-documents"><span aria-hidden="true">📎</span> Joindre un document (facultatif)</label>
+              <div class="attachment-dropzone">
+                <p class="attachment-instructions" id="callback-documents-instructions">Déposez un PDF ou une photo pour compléter votre demande.</p>
+                <input id="callback-documents" name="Documents joints" type="file" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" aria-describedby="callback-documents-instructions callback-documents-limits callback-documents-error callback-documents-list" />
+              </div>
+              <p class="attachment-limits" id="callback-documents-limits">Un seul fichier · 7 Mo maximum · PDF, JPG, JPEG ou PNG.</p>
+              <span class="field-error attachment-error" id="callback-documents-error" aria-live="polite"></span>
+              <ul class="attachment-file-list" id="callback-documents-list" aria-live="polite"></ul>
+            </div>
             <p class="form-privacy">Vos informations servent uniquement à traiter votre demande de rappel.</p>
+            <div class="form-status" aria-live="polite"></div>
             <button class="button button-primary button-submit" type="submit">Demander un rappel <span aria-hidden="true">↗</span></button>
           </form>
         </div>
@@ -293,6 +316,13 @@
       </div>
     </section>
     <button class="cookie-manage" id="cookie-manage" type="button" hidden>Gérer les cookies</button>
-    <script src="script.js?v=20260917-1" defer></script>
+    <form name="assureco-devis" method="POST" action="/" enctype="multipart/form-data" data-netlify="true" hidden>
+      <input type="hidden" name="form-name" value="assureco-devis" />
+      <input type="hidden" name="subject" value="ASSURÉCO - Nouvelle demande de devis" />
+      <input type="hidden" name="Type de demande" value="" />
+      <input type="email" name="email" />
+      <input type="file" name="Documents joints" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" />
+    </form>
+    <script src="script.js?v=20260918-3" defer></script>
   </body>
 </html>

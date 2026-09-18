@@ -176,6 +176,9 @@ h1 em, h2 em { color: var(--blue); font-style: normal; }
 .attachment-dropzone input[type="file"]::file-selector-button { margin-right: 10px; padding: 8px 11px; border: 1px solid var(--line); border-radius: 6px; background: var(--white); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
 .attachment-file-list { display: grid; gap: 4px; padding-left: 18px; margin: 0; color: var(--ink-soft); font-size: 12px; overflow-wrap: anywhere; }
 .attachment-error:empty, .attachment-file-list:empty { display: none; }
+.contact-form .attachment-heading, .callback-form .attachment-heading { color: rgba(255,255,255,0.9); }
+.contact-form .attachment-limits, .contact-form .attachment-file-list, .callback-form .attachment-limits, .callback-form .attachment-file-list { color: rgba(255,255,255,0.68); }
+.contact-form .attachment-error, .callback-form .attachment-error { color: #fecaca; }
 .form-privacy { margin: 8px 0 18px; color: var(--muted); font-size: 11px; }
 .form-privacy a { color: var(--blue-dark); }
 .form-status { min-height: 0; margin: 0 0 14px; border-radius: 10px; font-size: 13px; }

@@ -17,14 +17,14 @@ if (isTasteVariant) {
   }
 }
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mrpgjreg';
-const MAX_ATTACHMENT_FILES = 10;
-const MAX_ATTACHMENT_FILE_BYTES = 25 * 1024 * 1024;
-const MAX_ATTACHMENT_TOTAL_BYTES = 90 * 1024 * 1024;
+const QUOTE_FORM_NAME = 'assureco-devis';
+const MAX_ATTACHMENT_FILES = 1;
+const MAX_ATTACHMENT_FILE_BYTES = 7 * 1024 * 1024;
+const ATTACHMENT_ACCEPT = '.pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png';
 
 const text = (id, label, name = label, required = false, placeholder = '') => ({ id, label, name, type: 'text', required, placeholder });
 const tel = (id, label, required = false) => ({ id, label, name: label, type: 'tel', required });
-const email = (id, label = 'Adresse e-mail', required = false) => ({ id, label, name: label, type: 'email', required });
+const email = (id, label = 'Adresse e-mail', required = false) => ({ id, label, name: 'email', type: 'email', required });
 const date = (id, label, required = false) => ({ id, label, name: label, type: 'date', required });
 const number = (id, label, required = false) => ({ id, label, name: label, type: 'number', required });
 const textarea = (id, label, name = label, required = false) => ({ id, label, name, type: 'textarea', required });
@@ -258,6 +258,58 @@ function renderField(field) {
   return wrapper;
 }
 
+function bindAttachmentInput(fileInput) {
+  const attachmentField = fileInput.closest('.attachment-field');
+  const dropzone = attachmentField.querySelector('.attachment-dropzone');
+  const fileError = attachmentField.querySelector('.attachment-error');
+  const fileList = attachmentField.querySelector('.attachment-file-list');
+
+  const validateFiles = () => {
+    const files = [...fileInput.files];
+    const unsupported = files.some((file) => !/\.(pdf|jpe?g|png)$/i.test(file.name));
+    let message = '';
+    if (files.length > MAX_ATTACHMENT_FILES) message = 'Vous pouvez joindre un seul fichier.';
+    else if (files.some((file) => file.size > MAX_ATTACHMENT_FILE_BYTES)) message = 'Le fichier doit faire 7 Mo maximum.';
+    else if (unsupported) message = 'Seuls les fichiers PDF, JPG, JPEG et PNG sont acceptés.';
+
+    fileInput.setCustomValidity(message);
+    if (message) fileInput.setAttribute('aria-invalid', 'true');
+    else fileInput.removeAttribute('aria-invalid');
+    fileError.textContent = message;
+    fileList.replaceChildren(...files.map((file) => {
+      const item = document.createElement('li');
+      item.textContent = file.name;
+      return item;
+    }));
+  };
+
+  fileInput.form?.addEventListener('reset', () => requestAnimationFrame(() => {
+    fileInput.setCustomValidity('');
+    fileInput.removeAttribute('aria-invalid');
+    fileError.replaceChildren();
+    fileList.replaceChildren();
+    dropzone.classList.remove('is-dragover');
+  }));
+  fileInput.addEventListener('change', validateFiles);
+  dropzone.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    dropzone.classList.add('is-dragover');
+  });
+  dropzone.addEventListener('dragleave', (event) => {
+    if (!dropzone.contains(event.relatedTarget)) dropzone.classList.remove('is-dragover');
+  });
+  dropzone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropzone.classList.remove('is-dragover');
+    const droppedFiles = event.dataTransfer?.files;
+    if (!droppedFiles?.length) return;
+    const transfer = new DataTransfer();
+    [...droppedFiles].forEach((file) => transfer.items.add(file));
+    fileInput.files = transfer.files;
+    validateFiles();
+  });
+}
+
 function renderFinalRequestFields(formId) {
   const fieldset = document.createElement('fieldset');
   fieldset.className = 'form-fieldset form-final-fieldset';
@@ -304,8 +356,7 @@ function renderFinalRequestFields(formId) {
   fileInput.type = 'file';
   fileInput.id = fileId;
   fileInput.name = 'Documents joints';
-  fileInput.accept = '.pdf,application/pdf,image/jpeg,image/png,image/webp,image/heic,image/heif,image/avif,image/gif,image/tiff,image/bmp';
-  fileInput.multiple = true;
+  fileInput.accept = ATTACHMENT_ACCEPT;
 
   const usefulDocuments = document.createElement('p');
   usefulDocuments.className = 'attachment-help';
@@ -313,7 +364,7 @@ function renderFinalRequestFields(formId) {
   const limits = document.createElement('p');
   limits.className = 'attachment-limits';
   limits.id = `${fileId}-limits`;
-  limits.textContent = '10 fichiers maximum · 25 Mo par fichier · 90 Mo au total.';
+  limits.textContent = 'Un seul fichier · 7 Mo maximum · PDF, JPG, JPEG ou PNG.';
   const fileError = document.createElement('span');
   fileError.className = 'field-error attachment-error';
   fileError.id = `${fileId}-error`;
@@ -327,50 +378,7 @@ function renderFinalRequestFields(formId) {
   attachmentField.append(fileLabel, dropzone, usefulDocuments, limits, fileError, fileList);
   fieldset.append(attachmentField);
 
-  const validateFiles = () => {
-    const files = [...fileInput.files];
-    const totalBytes = files.reduce((total, file) => total + file.size, 0);
-    const unsupported = files.some((file) => {
-      const supportedMime = file.type === 'application/pdf'
-        || ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif', 'image/avif', 'image/gif', 'image/tiff', 'image/bmp'].includes(file.type);
-      const supportedExtension = /\.(pdf|jpe?g|png|gif|webp|heic|heif|avif|tiff?|bmp)$/i.test(file.name);
-      return !supportedMime && !supportedExtension;
-    });
-    let message = '';
-    if (files.length > MAX_ATTACHMENT_FILES) message = `Vous pouvez joindre au maximum ${MAX_ATTACHMENT_FILES} fichiers.`;
-    else if (files.some((file) => file.size > MAX_ATTACHMENT_FILE_BYTES)) message = 'Chaque fichier doit faire 25 Mo maximum.';
-    else if (totalBytes > MAX_ATTACHMENT_TOTAL_BYTES) message = 'Le poids total des fichiers ne peut pas dépasser 90 Mo.';
-    else if (unsupported) message = 'Seuls les fichiers PDF et les photos sont acceptés.';
-
-    fileInput.setCustomValidity(message);
-    if (message) fileInput.setAttribute('aria-invalid', 'true');
-    else fileInput.removeAttribute('aria-invalid');
-    fileError.textContent = message;
-    fileList.replaceChildren(...files.map((file) => {
-      const item = document.createElement('li');
-      item.textContent = file.name;
-      return item;
-    }));
-  };
-
-  fileInput.addEventListener('change', validateFiles);
-  dropzone.addEventListener('dragover', (event) => {
-    event.preventDefault();
-    dropzone.classList.add('is-dragover');
-  });
-  dropzone.addEventListener('dragleave', (event) => {
-    if (!dropzone.contains(event.relatedTarget)) dropzone.classList.remove('is-dragover');
-  });
-  dropzone.addEventListener('drop', (event) => {
-    event.preventDefault();
-    dropzone.classList.remove('is-dragover');
-    const droppedFiles = event.dataTransfer?.files;
-    if (!droppedFiles?.length) return;
-    const transfer = new DataTransfer();
-    [...droppedFiles].forEach((file) => transfer.items.add(file));
-    fileInput.files = transfer.files;
-    validateFiles();
-  });
+  bindAttachmentInput(fileInput);
   return fieldset;
 }
 
@@ -501,11 +509,13 @@ function renderForm(formId) {
   panel.className = 'form-panel';
   const form = document.createElement('form');
   form.id = `${formId}-form`;
-  form.action = FORMSPREE_ENDPOINT;
+  form.name = QUOTE_FORM_NAME;
+  form.action = '/';
+  form.dataset.netlify = 'true';
   form.method = 'POST';
   form.enctype = 'multipart/form-data';
   form.noValidate = true;
-  form.innerHTML = `<input type="hidden" name="Type de demande" value="${definition.title}" /><input type="hidden" name="_subject" value="ASSURÉCO — ${definition.title}" /><p>Les champs marqués d’un astérisque sont nécessaires à l’étude de votre demande.</p>`;
+  form.innerHTML = `<input type="hidden" name="form-name" value="${QUOTE_FORM_NAME}" /><input type="hidden" name="subject" value="ASSURÉCO - ${definition.title}" /><input type="hidden" name="Type de demande" value="${definition.title}" /><p>Les champs marqués d’un astérisque sont nécessaires à l’étude de votre demande.</p>`;
 
   definition.groups.forEach(([groupTitle, fields]) => {
     const fieldset = document.createElement('fieldset');
@@ -521,16 +531,6 @@ function renderForm(formId) {
   });
 
   form.append(renderFinalRequestFields(formId));
-  form.addEventListener('reset', () => requestAnimationFrame(() => {
-    form.querySelectorAll('input[type="file"]').forEach((input) => {
-      input.setCustomValidity('');
-      input.removeAttribute('aria-invalid');
-      input.closest('.attachment-field')?.querySelector('.attachment-error')?.replaceChildren();
-      input.closest('.attachment-field')?.querySelector('.attachment-file-list')?.replaceChildren();
-      input.closest('.attachment-field')?.querySelector('.attachment-dropzone')?.classList.remove('is-dragover');
-    });
-  }));
-
   const privacy = document.createElement('p');
   privacy.className = 'form-privacy';
   privacy.innerHTML = 'Les informations transmises servent uniquement au traitement de votre demande. <a href="#politique-confidentialite">Consulter la politique de confidentialité</a>.';
@@ -583,20 +583,16 @@ async function handleSubmit(event, form, status, submit) {
   status.className = 'form-status';
   status.textContent = 'Transmission de votre demande…';
   try {
-    const response = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-    if (!response.ok) {
-      const result = await response.json().catch(() => null);
-      if (result?.errors?.some((item) => item.code === 'NO_FILE_UPLOADS')) throw new Error('file-uploads-disabled');
-      throw new Error('submission-failed');
-    }
+    const formData = new FormData(form);
+    if (!formData.has('form-name')) formData.set('form-name', form.name);
+    const response = await fetch('/', { method: 'POST', body: formData });
+    if (!response.ok) throw new Error('submission-failed');
     form.reset();
     status.className = 'form-status success';
     status.textContent = 'Votre demande a bien été transmise. Le cabinet reviendra vers vous dans les meilleurs délais.';
   } catch (error) {
     status.className = 'form-status error';
-    status.textContent = error.message === 'file-uploads-disabled'
-      ? 'Le compte de réception ne permet pas encore l’envoi de fichiers. Votre demande est conservée : réessayez sans les documents ou contactez le cabinet.'
-      : 'L’envoi n’a pas pu aboutir. Vérifiez votre connexion ou contactez directement le cabinet par téléphone ou e-mail.';
+    status.textContent = 'L’envoi n’a pas pu aboutir. Vérifiez votre connexion ou contactez directement le cabinet par téléphone ou e-mail.';
   } finally {
     submit.disabled = false;
   }
@@ -622,6 +618,12 @@ renderServiceCards('#daily-services', dailyServices);
 renderServiceCards('#special-services', specialServices);
 document.querySelectorAll('[data-open-form]').forEach((card) => card.addEventListener('click', () => openQuestionnaire(card.dataset.openForm)));
 document.querySelector('#close-questionnaire').addEventListener('click', closeQuestionnaire);
+document.querySelectorAll('#contact-form, #callback-form').forEach((form) => {
+  const status = form.querySelector('.form-status');
+  const submit = form.querySelector('.button-submit');
+  form.addEventListener('submit', (event) => handleSubmit(event, form, status, submit));
+});
+document.querySelectorAll('#contact-form input[type="file"], #callback-form input[type="file"]').forEach(bindAttachmentInput);
 
 const hashId = window.location.hash.slice(1);
 if (formDefinitions[hashId]) openQuestionnaire(hashId, false);
