@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://assureco-assurance-eco-pasquier.netlify.app/sitemap.xml
+Sitemap: https://assureco-pasquier.fr/sitemap.xml
 
