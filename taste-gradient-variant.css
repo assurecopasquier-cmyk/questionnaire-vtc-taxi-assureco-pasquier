@@ -147,3 +147,25 @@ html.taste-gradient-variant .service-card:focus-visible {
     margin-top: 7px;
   }
 }
+
+/* Empile proprement le nom et l'adresse en bas de la photo sans chevauchement */
+html.taste-gradient-variant .portrait-caption {
+  bottom: 108px;
+  left: 20px;
+  right: 20px;
+}
+
+html.taste-gradient-variant .portrait-contact {
+  left: 20px;
+  right: 20px;
+  bottom: 18px;
+}
+
+html.taste-gradient-variant .portrait-contact strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--green);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
